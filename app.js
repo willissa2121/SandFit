@@ -2,7 +2,7 @@ var express = require("express");
 var path = require('path')
 var exphbs = require("express-handlebars");
 var mysql = require('mysql')
-
+const nodemailer = require("nodemailer");
 
 
 var app = express();
@@ -94,7 +94,30 @@ app.get('/password', (req, res) => {
   res.render('password')
 })
 app.post('/password', (req, res) => {
-  console.log('check')
+  getPass(req.body)
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'sandfitrecovery@gmail.com',
+      pass: 'Passwordsucks!1'
+    }
+  });
+
+  var mailOptions = {
+    from: 'sandfitrecovery@gmail.com',
+    to: req.body.email,
+    subject: 'Recovery Password',
+    text: 'this is working'
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  })
+
   res.redirect('/password')
 })
 
@@ -112,7 +135,7 @@ let checkDate = (x, res) => {
   }).then(response => {
     let date = new Date()
     let userDate = response[0].dataValues.updatedAt;
-    if (userDate.setHours(0, 0, 0, 0) == date.setHours(0, 0, 0, 0)) {
+    if (userDate.setHours(0, 0, 0, 0) != date.setHours(0, 0, 0, 0)) {
       res.redirect('/weight')
     }
     else {
@@ -131,15 +154,17 @@ let authenticateUser = (x, a) => {
       email: x.email
     }
   }).then((response) => {
-    console.log(response[0].userBorn, response[0].password)
-    if (x.password === response[0].password && response[0].userBorn == 0) {
-      a.redirect('/survey')
-    }
-    else if (x.password === response[0].password && response[0].userBorn === 1) {
-      checkDate(x.email, a);
-    }
+    if (typeof response[0] === "undefined") { a.redirect('login/fail') }
     else {
-      a.redirect('login/fail')
+      if (x.password === response[0].password && response[0].userBorn == 0) {
+        a.redirect('/survey')
+      }
+      else if (x.password === response[0].password && response[0].userBorn === 1) {
+        checkDate(x.email, a);
+      }
+      else {
+        a.redirect('login/fail')
+      }
     }
   })
 }
@@ -179,7 +204,7 @@ let updateUser = (x, res) => {
     height: x.height,
     weight: x.weight,
     weightGoal: x.goal,
-    userBorn: 0
+    userBorn: 1
   },
     { where: { email: x.username } }
   ).then(function (data) {
