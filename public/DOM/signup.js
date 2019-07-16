@@ -32,7 +32,13 @@ $("#surveyForm").on('submit', function (e) {
   console.log(localStorage.getItem('username'))
 
   $.post('/survey', bigData, function (data) {
+    location.href = "/dashboard"
+  })
+})
 
+$("#password-redirect").on('click', function () {
+  $.post('/password', function (data) {
+    location.href = "/password"
   })
 })
 

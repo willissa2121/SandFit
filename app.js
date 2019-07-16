@@ -65,40 +65,62 @@ app.get('/login', (req, res) => {
   res.render('login')
 })
 
+app.post('/register', (req, res) => {
+  let email = req.body.email;
+  checkEmail(email, req.body, res)
+})
+
 app.get('/login/fail', (req, res) => {
   res.render('login-fail')
 })
 
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard')
+})
+
+app.get('/weight', (req, res) => {
+  res.render('dailyWeight')
+})
+
 app.post('/login', (req, res) => {
+  // checkDate(req.body.email, res)
   authenticateUser(req.body, res)
 })
 app.post('/login-fail', (req, res) => {
   authenticateUser(req.body, res)
 })
 
-app.post('/survey', (req, res) => {
-  console.log(req.body)
-  updateUser(req.body)
+app.get('/password', (req, res) => {
+  res.render('password')
+})
+app.post('/password', (req, res) => {
+  console.log('check')
+  res.redirect('/password')
 })
 
-// let checkDate = () => {
-//   db.users.findAll({
-//     attributes: ['userBornToday', 'updatedAt'],
-//     where: {
-//       id: 1
-//     }
-//   }).then(response => {
-//     let date = new Date()
-//     console.log(date, response[0].dataValues.updatedAt)
-//     if (inputDate.setHours(0, 0, 0, 0) == todaysDate.setHours(0, 0, 0, 0)) {
-//       console.log('true');
-//     }
-//     else {
-//       console.log('false');
-//     }
-//   })
-// }
-// checkDate()
+app.post('/survey', (req, res) => {
+  // console.log(req.body)
+  updateUser(req.body, res)
+})
+
+let checkDate = (x, res) => {
+  db.users.findAll({
+    attributes: ['userBornToday', 'updatedAt'],
+    where: {
+      email: x
+    }
+  }).then(response => {
+    let date = new Date()
+    let userDate = response[0].dataValues.updatedAt;
+    if (userDate.setHours(0, 0, 0, 0) == date.setHours(0, 0, 0, 0)) {
+      res.redirect('/weight')
+    }
+    else {
+      res.redirect('/dashboard')
+    }
+  })
+}
+
 
 
 
@@ -109,12 +131,12 @@ let authenticateUser = (x, a) => {
       email: x.email
     }
   }).then((response) => {
-    console.log(x.password, response)
+    console.log(response[0].userBorn, response[0].password)
     if (x.password === response[0].password && response[0].userBorn == 0) {
       a.redirect('/survey')
     }
     else if (x.password === response[0].password && response[0].userBorn === 1) {
-      a.redirect('/landing')
+      checkDate(x.email, a);
     }
     else {
       a.redirect('login/fail')
@@ -150,18 +172,19 @@ let checkEmail = (a, b, c) => {
   })
 }
 
-let updateUser = (x) => {
+let updateUser = (x, res) => {
   db.users.update({
     age: x.age,
     gender: x.gender,
     height: x.height,
     weight: x.weight,
     weightGoal: x.goal,
-    userBorn: 1
+    userBorn: 0
   },
     { where: { email: x.username } }
   ).then(function (data) {
-    console.log(data)
+    console.log('here')
+    res.redirect('/dashboard')
   })
 }
 
