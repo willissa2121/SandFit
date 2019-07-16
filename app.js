@@ -94,29 +94,40 @@ app.get('/password', (req, res) => {
   res.render('password')
 })
 app.post('/password', (req, res) => {
-  getPass(req.body)
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'sandfitrecovery@gmail.com',
-      pass: 'Passwordsucks!1'
+  db.users.findAll({
+    attributes: ['password'],
+    where: {
+      email: req.body.email
     }
-  });
+  }).then(function (response) {
+    if (typeof response[0] === "undefined") { a.redirect('password/fail') }
+    else {
+      console.log(response[0].dataValues.password)
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'sandfitrecovery@gmail.com',
+          pass: 'Passwordsucks!1'
+        }
+      });
 
-  var mailOptions = {
-    from: 'sandfitrecovery@gmail.com',
-    to: req.body.email,
-    subject: 'Recovery Password',
-    text: 'this is working'
-  };
+      var mailOptions = {
+        from: 'sandfitrecovery@gmail.com',
+        to: req.body.email,
+        subject: 'Recovery Password',
+        text: 'This is your recovery password email from the SandFit Fitness Team. Your Password to log in is: ' + response[0].dataValues.password
+      };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      })
     }
   })
+
 
   res.redirect('/password')
 })
