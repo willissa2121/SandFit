@@ -90,6 +90,10 @@ app.post('/login-fail', (req, res) => {
   authenticateUser(req.body, res)
 })
 
+app.get('/password/fail', (req, res) => {
+  res.render('password-fail')
+})
+
 app.get('/password', (req, res) => {
   res.render('password')
 })
@@ -100,9 +104,10 @@ app.post('/password', (req, res) => {
       email: req.body.email
     }
   }).then(function (response) {
-    if (typeof response[0] === "undefined") { a.redirect('password/fail') }
+    console.log(response[0])
+    if (typeof response[0] === "undefined") { res.redirect('/password/fail') }
     else {
-      console.log(response[0].dataValues.password)
+
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -124,12 +129,13 @@ app.post('/password', (req, res) => {
         } else {
           console.log('Email sent: ' + info.response);
         }
+        res.redirect('/password')
       })
     }
   })
 
 
-  res.redirect('/password')
+
 })
 
 app.post('/survey', (req, res) => {
