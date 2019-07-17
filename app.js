@@ -4,6 +4,7 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+let username;
 
 
 var app = express();
@@ -30,11 +31,7 @@ else {
     host: "localhost",
     port: 3306,
     user: "root",
-<<<<<<< HEAD
     password: "password",
-=======
-    password: "nst032596",
->>>>>>> nt
     database: "practice_db"
   });
 }
@@ -50,6 +47,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   let email = req.body.email;
+  username = req.body.email
   checkEmail(email, req.body, res)
 
 })
@@ -80,7 +78,16 @@ app.get('/login/fail', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-  res.render('dashboard')
+  db.users.findAll({
+    attributes: ['calories', 'caloriesToday'],
+    where: {
+      email: username
+    }
+  }).then(function (response) {
+    console.log(response[0].dataValues)
+    res.render('dashboard')
+  })
+
 })
 
 app.get('/weight', (req, res) => {
@@ -89,6 +96,7 @@ app.get('/weight', (req, res) => {
 
 app.post('/login', (req, res) => {
   // checkDate(req.body.email, res)
+  username = req.body.email
   authenticateUser(req.body, res)
 })
 app.post('/login-fail', (req, res) => {
@@ -153,6 +161,7 @@ app.post('/survey', (req, res) => {
 app.get("/dashboard", (req, res) => {
   res.render('dashboard')
 });
+
 
 app.post("/dashboard", (req, res) => {
   // console.log(req.body);
@@ -336,23 +345,52 @@ let getCals = (x) => {
   })
 }
 
+app.get('/diary', (req, res) => {
+  res.render('diary')
+})
+app.post('/diary', (req, res) => {
+  apiCall(req.body.userfood, req.body.foodQuant)
+  res.redirect('/diary')
+})
 
 //practice food parser request
-let apiCall = () => {
-  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+let apiCall2 = (x, y) => {
+  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20" + x + "&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
   axios.get(url).then(function (response) {
-    console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
+    let singleCal = (response.data.hints[0].food.nutrients.ENERC_KCAL)
+    let totalCal = singleCal * y
+    db.users.findAll({
+      attributes: ['caloriesToday'],
+      where: {
+        email: username
+      }
+    }).then(function (response) {
+      let currentCals = (response[0].dataValues.caloriesToday)
+      let todayCals = currentCals += totalCal
+      console.log(username)
+      db.users.update({
+        caloriesToday: todayCals
+      },
+        {
+          where: {
+            email: username
+          }
+        }
+      ).then(function (response) {
+        console.log('worked first time')
+      })
+    })
   })
 }
-apiCall()
+// apiCall('dorito')
 
-let apicall2 = () => {
-  let url = "http://api.edamam.com/auto-complete?q=pe&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+let apiCall = (x, y) => {
+  let url = "http://api.edamam.com/auto-complete?q=" + x + "&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
   axios.get(url).then(function (response) {
-    console.log(response.data)
+    apiCall2(response.data[0], y)
   })
 }
-apicall2()
+// apiCall2()
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
