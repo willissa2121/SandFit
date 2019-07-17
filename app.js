@@ -1,8 +1,9 @@
 var express = require("express");
-var path = require('path')
+var path = require('path');
 var exphbs = require("express-handlebars");
-var mysql = require('mysql')
+var mysql = require('mysql');
 const nodemailer = require("nodemailer");
+let axios = require("axios");
 
 
 var app = express();
@@ -90,9 +91,15 @@ app.post('/login-fail', (req, res) => {
   authenticateUser(req.body, res)
 })
 
+app.get('/password/fail', (req, res) => {
+  res.render('password-fail')
+})
+
 app.get('/password', (req, res) => {
   res.render('password')
 })
+
+//function that will send email to user containing password if email is recognized;
 app.post('/password', (req, res) => {
   db.users.findAll({
     attributes: ['password'],
@@ -100,9 +107,10 @@ app.post('/password', (req, res) => {
       email: req.body.email
     }
   }).then(function (response) {
-    if (typeof response[0] === "undefined") { a.redirect('password/fail') }
+    console.log(response[0])
+    if (typeof response[0] === "undefined") { res.redirect('/password/fail') }
     else {
-      console.log(response[0].dataValues.password)
+
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -124,12 +132,13 @@ app.post('/password', (req, res) => {
         } else {
           console.log('Email sent: ' + info.response);
         }
+        res.redirect('/password')
       })
     }
   })
 
 
-  res.redirect('/password')
+
 })
 
 app.post('/survey', (req, res) => {
@@ -137,6 +146,7 @@ app.post('/survey', (req, res) => {
   updateUser(req.body, res)
 })
 
+// Function to make sure user has updated today, to take to weight entery screen (via login post [nested])
 let checkDate = (x, res) => {
   db.users.findAll({
     attributes: ['userBornToday', 'updatedAt'],
@@ -156,7 +166,7 @@ let checkDate = (x, res) => {
 }
 
 
-
+//function that is called to make sure login credentials are correct and take user to correct screen (via login post)
 
 let authenticateUser = (x, a) => {
 
@@ -180,7 +190,7 @@ let authenticateUser = (x, a) => {
   })
 }
 
-
+//function that will execute to make sure user login is unique(via register post route)
 let checkEmail = (a, b, c) => {
   let empty = []
   db.users.findAll({
@@ -208,25 +218,86 @@ let checkEmail = (a, b, c) => {
   })
 }
 
+// Function that will execute once user presses submit on survey ( via post route of survey)
 let updateUser = (x, res) => {
   db.users.update({
     age: x.age,
     gender: x.gender,
     height: x.height,
-    weight: x.weight,
-    weightGoal: x.goal,
+    weight: x.weight / 2.2,
+    weightGoal: x.goal / 2.2,
     userBorn: 1
   },
     { where: { email: x.username } }
   ).then(function (data) {
-    console.log('here')
+    getCals(x.username)
     res.redirect('/dashboard')
   })
 }
 
+//function to generate daily calorie goal based on user weight and height and gender and age
+let getCals = (x) => {
+  db.users.findAll({
+    attributes: ['age', 'height', 'weight', 'gender'],
+    where: {
+      email: x
+    }
+  }).then(function (response) {
+    console.log(response[0].dataValues)
+    let fatPercentage = Number(response[0].dataValues.height / (response[0].dataValues.weight * 3.68))
+    let fatFreeMass = (response[0].dataValues.weight - (response[0].dataValues.weight * fatPercentage))
+    let calsTemp = (500 + (22 * fatFreeMass))
+    if (response[0].dataValues.gender == 'male') {
+      calsTemp += 105
+    }
+    if (response[0].dataValues.age < 35) {
+      calsTemp += 135
+    }
+    let cals = Math.floor(calsTemp)
+    if (cals > 2550) {
+      cals = 2475
+    }
+    db.users.update({
+      calories: cals
+    },
+      {
+        where: {
+          email: x
+        }
+      }
+    ).then(function (response) {
+      console.log('worked first time')
+    })
 
+  })
+}
+
+
+//practice food parser request
+let apiCall = () => {
+  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+  axios.get(url).then(function (response) {
+    console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
+  })
+}
+apiCall()
+
+let apicall2 = () => {
+  let url = "http://api.edamam.com/auto-complete?q=pe&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+  axios.get(url).then(function (response) {
+    console.log(response.data)
+  })
+}
+apicall2()
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
 });
+
+
+
+
+
+
+
