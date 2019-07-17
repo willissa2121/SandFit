@@ -1,8 +1,9 @@
 var express = require("express");
-var path = require('path')
+var path = require('path');
 var exphbs = require("express-handlebars");
-var mysql = require('mysql')
+var mysql = require('mysql');
 const nodemailer = require("nodemailer");
+let axios = require("axios");
 
 
 var app = express();
@@ -267,8 +268,16 @@ let getCals = (x) =>{
     
   })
 }
-// getCals()
 
+
+//practice food parser request
+let apiCall = () =>{
+  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+  axios.get(url).then(function(response){
+    console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
+  })
+}
+apiCall()
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
