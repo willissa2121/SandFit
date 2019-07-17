@@ -86,16 +86,60 @@ app.get("/dashboard", (req, res) => {
 });
 
 app.post("/dashboard", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   db.userHistory.create({
-    excerciseType: req.body.excerciseType,
-    excerciseIntensity: req.body.excerciseIntensity
-  }).then(function(db) {
-    res.json(db)
+    exerciseType: req.body.exerciseType,
+    exerciseIntensity: req.body.exerciseIntensity
+    //maybe more data for graphing later
+  }).then(function (results) {
+
+    var arr = [{
+      exerciseType: 'Legs',
+      intensity: 10,
+      image: 'http://image.png',
+      description: 'an exercise 12334'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 10,
+      image: 'http://image.png',
+      description: 'an exercise 4567'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 1,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 2,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Arms',
+      intensity: 3,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Arms',
+      intensity: 5,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }
+    ];
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].exerciseType == req.body.exerciseType && arr[i].intensity == req.body.exerciseIntensity) {
+        newArr.push(arr[i])
+      }
+    }
+
+
+
+    res.json(newArr)
   })
 })
 
 
+//
 
 // let checkDate = () => {
 //   db.users.findAll({
@@ -129,7 +173,7 @@ let authenticateUser = (x, a) => {
       a.redirect('/login/fail')
     }
     console.log(x.password, response)
-    if(x == 'undefined' || response == "undefined") {
+    if (x == 'undefined' || response == "undefined") {
       a.redirect('/login/fail')
     }
     if (x.password === response[0].password && response[0].userBorn == 0) {

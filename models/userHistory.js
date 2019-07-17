@@ -1,11 +1,11 @@
 module.exports = (function (sequelize, DataTypes) {
     var userHistory = sequelize.define('userHistory', {
 
-      excerciseType: {
+      exerciseType: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      excerciseIntesity: {
+      exerciseIntensity: {
         type: DataTypes.STRING,
         allowNull: false
       },
