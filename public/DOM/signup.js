@@ -26,13 +26,19 @@ $("#surveyForm").on('submit', function (e) {
     weight: $("#weight").val().trim(),
     height: $("#height").val().trim(),
     age: $("#age").val().trim(),
-    gender: $("#age").val().trim(),
+    gender: $("#gender").val().trim(),
     goal: $("#goalWeight").val().trim()
   }
   console.log(localStorage.getItem('username'))
 
   $.post('/survey', bigData, function (data) {
+    location.href = "/dashboard"
+  })
+})
 
+$("#password-redirect").on('click', function () {
+  $.post('/password', function (data) {
+    location.href = "/password"
   })
 })
 
