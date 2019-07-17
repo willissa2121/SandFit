@@ -143,7 +143,7 @@ app.post('/password', (req, res) => {
 
 app.post('/survey', (req, res) => {
   console.log(req.body)
-  updateUser(req.body)
+  updateUser(req.body,res)
 })
 
 app.get("/dashboard", (req, res) => {
