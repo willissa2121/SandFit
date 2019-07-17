@@ -4,7 +4,9 @@
 
 $("#signup-button").on('click', function () {
   let username = $("#userEmail").val().trim()
+  let userFirstName = $("#firstName").val().trim()
   localStorage.setItem('username', username)
+  localStorage.setItem('userFirstName', userFirstName)
 })
 
 $("#login-button").on('click', function () {
