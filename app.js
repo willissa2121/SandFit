@@ -143,7 +143,7 @@ app.post('/password', (req, res) => {
 
 app.post('/survey', (req, res) => {
   console.log(req.body)
-  updateUser(req.body)
+  updateUser(req.body, res)
 })
 
 app.get("/dashboard", (req, res) => {
@@ -289,7 +289,9 @@ let updateUser = (x, res) => {
     { where: { email: x.username } }
   ).then(function (data) {
     getCals(x.username)
-    res.redirect('/dashboard')
+    console.log('checked')
+    res.redirect('dashboard')
+
   })
 }
 
