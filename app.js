@@ -224,8 +224,8 @@ let updateUser = (x, res) => {
     age: x.age,
     gender: x.gender,
     height: x.height,
-    weight: x.weight/2.2,
-    weightGoal: x.goal/2.2,
+    weight: x.weight / 2.2,
+    weightGoal: x.goal / 2.2,
     userBorn: 1
   },
     { where: { email: x.username } }
@@ -236,50 +236,68 @@ let updateUser = (x, res) => {
 }
 
 //function to generate daily calorie goal based on user weight and height and gender and age
-let getCals = (x) =>{
+let getCals = (x) => {
   db.users.findAll({
-    attributes:['age','height','weight','gender'],
-    where:{
-      email:x
+    attributes: ['age', 'height', 'weight', 'gender'],
+    where: {
+      email: x
     }
-  }).then(function(response){
+  }).then(function (response) {
     console.log(response[0].dataValues)
-    let fatPercentage = Number(response[0].dataValues.height/(response[0].dataValues.weight * 3.68))
+    let fatPercentage = Number(response[0].dataValues.height / (response[0].dataValues.weight * 3.68))
     let fatFreeMass = (response[0].dataValues.weight - (response[0].dataValues.weight * fatPercentage))
     let calsTemp = (500 + (22 * fatFreeMass))
-    if(response[0].dataValues.gender == 'male'){
+    if (response[0].dataValues.gender == 'male') {
       calsTemp += 105
     }
-    if(response[0].dataValues.age< 35){
+    if (response[0].dataValues.age < 35) {
       calsTemp += 135
     }
     let cals = Math.floor(calsTemp)
-    if(cals > 2550){
+    if (cals > 2550) {
       cals = 2475
     }
     db.users.update({
-      calories:cals},
-      {where:{
-        email:x
-      }}
-    ).then(function(response){
+      calories: cals
+    },
+      {
+        where: {
+          email: x
+        }
+      }
+    ).then(function (response) {
       console.log('worked first time')
     })
-    
+
   })
 }
 
 
 //practice food parser request
-let apiCall = () =>{
+let apiCall = () => {
   let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
-  axios.get(url).then(function(response){
+  axios.get(url).then(function (response) {
     console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
   })
 }
 apiCall()
+
+let apicall2 = () => {
+  let url = "http://api.edamam.com/auto-complete?q=pe&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+  axios.get(url).then(function (response) {
+    console.log(response.data)
+  })
+}
+apicall2()
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
 });
+
+
+
+
+
+
+

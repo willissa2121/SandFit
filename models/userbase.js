@@ -46,9 +46,9 @@ module.exports = (function (sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0
     },
-    calories : {
+    calories: {
       type: DataTypes.INTEGER,
-      allowNull:true
+      allowNull: true
     }
   })
   return users;
