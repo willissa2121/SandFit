@@ -4,10 +4,11 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+let username;
 
 
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8079;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -30,15 +31,15 @@ else {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Passwordsucks!1",
+    password: "password",
     database: "practice_db"
   });
 }
+//****************************************/
 
 app.get('/login'), (req, res) => {
   res.render('login')
 }
-
 
 app.get('/', (req, res) => {
   res.render('index')
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   let email = req.body.email;
+  username = req.body.email
   checkEmail(email, req.body, res)
 
 })
@@ -76,7 +78,16 @@ app.get('/login/fail', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-  res.render('dashboard')
+  db.users.findAll({
+    attributes: ['calories', 'caloriesToday'],
+    where: {
+      email: username
+    }
+  }).then(function (response) {
+    console.log(response[0].dataValues)
+    res.render('dashboard')
+  })
+
 })
 
 app.get('/weight', (req, res) => {
@@ -85,6 +96,7 @@ app.get('/weight', (req, res) => {
 
 app.post('/login', (req, res) => {
   // checkDate(req.body.email, res)
+  username = req.body.email
   authenticateUser(req.body, res)
 })
 app.post('/login-fail', (req, res) => {
@@ -142,9 +154,68 @@ app.post('/password', (req, res) => {
 })
 
 app.post('/survey', (req, res) => {
-  // console.log(req.body)
+  console.log(req.body)
   updateUser(req.body, res)
 })
+
+app.get("/dashboard", (req, res) => {
+  res.render('dashboard')
+});
+
+
+app.post("/dashboard", (req, res) => {
+  // console.log(req.body);
+  db.userHistory.create({
+    exerciseType: req.body.exerciseType,
+    exerciseIntensity: req.body.exerciseIntensity
+    //maybe more data for graphing later
+  }).then(function (results) {
+
+    var arr = [{
+      exerciseType: 'Legs',
+      intensity: 10,
+      image: 'http://image.png',
+      description: 'an exercise 12334'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 10,
+      image: 'http://image.png',
+      description: 'an exercise 4567'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 1,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 2,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Arms',
+      intensity: 3,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Arms',
+      intensity: 5,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }
+    ];
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].exerciseType == req.body.exerciseType && arr[i].intensity == req.body.exerciseIntensity) {
+        newArr.push(arr[i])
+      }
+    }
+
+
+
+    res.json(newArr)
+  })
+})
+
 
 // Function to make sure user has updated today, to take to weight entery screen (via login post [nested])
 let checkDate = (x, res) => {
@@ -231,7 +302,9 @@ let updateUser = (x, res) => {
     { where: { email: x.username } }
   ).then(function (data) {
     getCals(x.username)
-    res.redirect('/dashboard')
+    console.log('checked')
+    res.redirect('dashboard')
+
   })
 }
 
@@ -272,23 +345,52 @@ let getCals = (x) => {
   })
 }
 
+app.get('/diary', (req, res) => {
+  res.render('diary')
+})
+app.post('/diary', (req, res) => {
+  apiCall(req.body.userfood, req.body.foodQuant)
+  res.redirect('/diary')
+})
 
 //practice food parser request
-let apiCall = () => {
-  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+let apiCall2 = (x, y) => {
+  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20" + x + "&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
   axios.get(url).then(function (response) {
-    console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
+    let singleCal = (response.data.hints[0].food.nutrients.ENERC_KCAL)
+    let totalCal = singleCal * y
+    db.users.findAll({
+      attributes: ['caloriesToday'],
+      where: {
+        email: username
+      }
+    }).then(function (response) {
+      let currentCals = (response[0].dataValues.caloriesToday)
+      let todayCals = currentCals += totalCal
+      console.log(username)
+      db.users.update({
+        caloriesToday: todayCals
+      },
+        {
+          where: {
+            email: username
+          }
+        }
+      ).then(function (response) {
+        console.log('worked first time')
+      })
+    })
   })
 }
-apiCall()
+// apiCall('dorito')
 
-let apicall2 = () => {
-  let url = "http://api.edamam.com/auto-complete?q=pe&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+let apiCall = (x, y) => {
+  let url = "http://api.edamam.com/auto-complete?q=" + x + "&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
   axios.get(url).then(function (response) {
-    console.log(response.data)
+    apiCall2(response.data[0], y)
   })
 }
-apicall2()
+// apiCall2()
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
