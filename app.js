@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 
 
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8079;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ else {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Passwordsucks!1",
+    password: "nst032596",
     database: "practice_db"
   });
 }
