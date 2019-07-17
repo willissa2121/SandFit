@@ -29,15 +29,15 @@ else {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Passwordsucks!1",
+    password: "password",
     database: "practice_db"
   });
 }
+//****************************************/
 
 app.get('/login'), (req, res) => {
   res.render('login')
 }
-
 
 app.get('/', (req, res) => {
   res.render('index')
@@ -81,6 +81,22 @@ app.post('/survey', (req, res) => {
   updateUser(req.body)
 })
 
+app.get("/dashboard", (req, res) => {
+  res.render('dashboard')
+});
+
+app.post("/dashboard", (req, res) => {
+  console.log(req.body);
+  db.userHistory.create({
+    excerciseType: req.body.excerciseType,
+    excerciseIntensity: req.body.excerciseIntensity
+  }).then(function(db) {
+    res.json(db)
+  })
+})
+
+
+
 // let checkDate = () => {
 //   db.users.findAll({
 //     attributes: ['userBornToday', 'updatedAt'],
@@ -108,8 +124,14 @@ let authenticateUser = (x, a) => {
     where: {
       email: x.email
     }
-  }).then((response) => {
+  }).then((response, err) => {
+    if (err) {
+      a.redirect('/login/fail')
+    }
     console.log(x.password, response)
+    if(x == 'undefined' || response == "undefined") {
+      a.redirect('/login/fail')
+    }
     if (x.password === response[0].password && response[0].userBorn == 0) {
       a.redirect('/survey')
     }
