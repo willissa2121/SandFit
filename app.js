@@ -29,15 +29,15 @@ else {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Passwordsucks!1",
+    password: "password",
     database: "practice_db"
   });
 }
+//****************************************/
 
 app.get('/login'), (req, res) => {
   res.render('login')
 }
-
 
 app.get('/', (req, res) => {
   res.render('index')
@@ -81,6 +81,66 @@ app.post('/survey', (req, res) => {
   updateUser(req.body)
 })
 
+app.get("/dashboard", (req, res) => {
+  res.render('dashboard')
+});
+
+app.post("/dashboard", (req, res) => {
+  // console.log(req.body);
+  db.userHistory.create({
+    exerciseType: req.body.exerciseType,
+    exerciseIntensity: req.body.exerciseIntensity
+    //maybe more data for graphing later
+  }).then(function (results) {
+
+    var arr = [{
+      exerciseType: 'Legs',
+      intensity: 10,
+      image: 'http://image.png',
+      description: 'an exercise 12334'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 10,
+      image: 'http://image.png',
+      description: 'an exercise 4567'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 1,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Legs',
+      intensity: 2,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Arms',
+      intensity: 3,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }, {
+      exerciseType: 'Arms',
+      intensity: 5,
+      image: 'http://image.png',
+      description: 'an exercise 567789'
+    }
+    ];
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].exerciseType == req.body.exerciseType && arr[i].intensity == req.body.exerciseIntensity) {
+        newArr.push(arr[i])
+      }
+    }
+
+
+
+    res.json(newArr)
+  })
+})
+
+
+//
+
 // let checkDate = () => {
 //   db.users.findAll({
 //     attributes: ['userBornToday', 'updatedAt'],
@@ -108,8 +168,14 @@ let authenticateUser = (x, a) => {
     where: {
       email: x.email
     }
-  }).then((response) => {
+  }).then((response, err) => {
+    if (err) {
+      a.redirect('/login/fail')
+    }
     console.log(x.password, response)
+    if (x == 'undefined' || response == "undefined") {
+      a.redirect('/login/fail')
+    }
     if (x.password === response[0].password && response[0].userBorn == 0) {
       a.redirect('/survey')
     }
