@@ -23,20 +23,10 @@ $("#add-food").on("click", function(event) {
 
 $("#submit-food").on("click", function(evnet) {
     event.preventDefault();
-    if (foodList) {
-        var i = 0;
-        ajaxGet(foodList[i]);
-        function ajaxGet(food) {
-            var queryURL = "https://api.edamam.com/api/nutrition-data?app_id=" + process.env.APP_ID;
-            queryURL += "&app_key=" + process.env.API_KEY;
-            queryURL += "&ingr=" + food;
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(result=> {
-                console.log(result);
-            });
-        }
+    if (foodList) {  
+        $.post("/user/diet", foodList, function(data) {
+            
+        })
     }
 });
 
