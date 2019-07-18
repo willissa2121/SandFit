@@ -222,19 +222,19 @@ app.get("/dashboard", (req, res) => {
 // app.post("/dashboard", (req, res) => {
 
 
-// app.get("/api/dashboard/:condition/:level", (req, res) => {
-//   // console.log(req.body);
-//   // console.log(req.params)
-//   db.exerciseInfo.findAll({
-//     where: {
-//       muscle_group: req.params.condition,
-//       level: req.params.level
-//     }
-//   }).then((results) => {
-//     console.log(results)
-//     res.json(results)
-//   })
-// });
+app.get("/api/dashboard/:condition/:level", (req, res) => {
+  // console.log(req.body);
+  // console.log(req.params)
+  db.exerciseInfo.findAll({
+    where: {
+      muscle_group: req.params.condition,
+      level: req.params.level
+    }
+  }).then((results) => {
+    console.log(results)
+    res.json(results)
+  })
+});
 // app.post("/dashboard", (req, res) => {
 
 //   db.userHistory.create({
