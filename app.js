@@ -68,7 +68,6 @@ app.get('/failed', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login')
 })
-
 app.get('/settings',(req,res)=>{
   db.users.findAll({
     where : {
@@ -80,7 +79,6 @@ app.get('/settings',(req,res)=>{
   })
 
 })
-
 app.post('/register', (req, res) => {
   let email = req.body.email;
   checkEmail(email, req.body, res)
@@ -92,7 +90,7 @@ app.get('/login/fail', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
   db.exerciseInfo.findAll({}).then(function (data) {
-    res.render('dashboard', { data: data })
+    // res.render('dashboard', { data: data })
     console.log(username)
     db.users.findAll({
       attributes: ['calories', 'caloriesToday', 'name'],
@@ -107,7 +105,8 @@ app.get('/dashboard', (req, res) => {
         username: response[0].dataValues.name,
         calories: response[0].dataValues.calories,
         calsToday: response[0].dataValues.caloriesToday,
-        remaining: remaining
+        remaining: remaining,
+        data: data
       }
       console.log(bigData)
       res.render('dashboard', bigData)
@@ -184,19 +183,19 @@ app.get('/dashboard', (req, res) => {
     updateUser(req.body, res)
   })
 
-  app.get("/dashboard", (req, res) => {
-    db.users.findAll({
-      attributes: ['calories', 'caloriesToday'],
-      where: {
-        email: username
-      }
-    }).then(response => {
-      console.log('checking here')
-      console.log(response[0].dataValues, username)
-      // res.render('dashboard',bigData)
-    })
+  // app.get("/dashboard", (req, res) => {
+  //   db.users.findAll({
+  //     attributes: ['calories', 'caloriesToday'],
+  //     where: {
+  //       email: username
+  //     }
+  //   }).then(response => {
+  //     console.log('checking here')
+  //     console.log(response[0].dataValues, username)
+  //     res.render('dashboard',bigData)
+  //   })
 
-  });
+  // });
 
 
   // app.post("/dashboard", (req, res) => {
@@ -215,16 +214,16 @@ app.get('/dashboard', (req, res) => {
         res.json(results)
       })
     });
-    app.post("/dashboard", (req, res) => {
+    // app.post("/dashboard", (req, res) => {
 
-      db.userHistory.create({
-        exerciseType: req.body.exerciseType,
-        exerciseIntensity: req.body.exerciseIntensity
-        //maybe more data for graphing later
-      }).then(function (results) {
-        res.json(results)
-      });
-    });
+    //   db.userHistory.create({
+    //     exerciseType: req.body.exerciseType,
+    //     exerciseIntensity: req.body.exerciseIntensity
+    //     //maybe more data for graphing later
+    //   }).then(function (results) {
+    //     res.json(results)
+    //   });
+    // });
 
     // Function to make sure user has updated today, to take to weight entery screen (via login post [nested])
     let checkDate = (x, res) => {
@@ -391,38 +390,14 @@ let apiCall2 = (x, y) => {
       })
     })
   }
-// apiCall('dorito')
 
-// let apiCall = (x, y) => {
-//     let url = "http://api.edamam.com/auto-complete?q=" + x + "&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
-//     axios.get(url).then(function (response) {
-//       apiCall2(response.data[0], y)
-//     })
-//   }
-// apiCall2()
-db.sequelize.sync().then(function () {
-    app.listen(PORT, function () {
-      console.log("App listening on PORT " + PORT);
-    });
-  });
+let apiCall = (x, y) => {
+    let url = "http://api.edamam.com/auto-complete?q=" + x + "&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+    axios.get(url).then(function (response) {
+      apiCall2(response.data[0], y)
+    })
+  }
 
-
-//practice food parser request
-let apiCall = () => {
-  let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
-  axios.get(url).then(function (response) {
-    console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
-  })
-}
-apiCall()
-
-let apicall2 = () => {
-  let url = "http://api.edamam.com/auto-complete?q=pe&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
-  axios.get(url).then(function (response) {
-    console.log(response.data)
-  })
-}
-apicall2()
 
 
 db.sequelize.sync().then(function () {
