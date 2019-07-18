@@ -22,7 +22,7 @@ module.exports = (function (sequelize, DataTypes) {
       }
     },
     {
-        freezeTableNAme: true
+        freezeTableName: true
     })
     return exerciseInfo;
   });
