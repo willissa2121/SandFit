@@ -45,8 +45,13 @@ module.exports = (function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
-    }, 
+    },
     calories: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    caloriesToday: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0
