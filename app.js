@@ -332,7 +332,7 @@ let updateUser = (x, res) => {
   ).then(function (data) {
     getCals(x.username)
     console.log('checked')
-    res.redirect('dashboard')
+    res.redirect('/dashboard')
 
   })
 }

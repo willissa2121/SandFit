@@ -6,15 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Register</title>
+  <link rel="stylesheet" href="/assets/register.css">
 </head>
 
-<body>
+<body id="body">
+
+  <header id="navbar-label">
+    <h1>SandFit Fitness App</h1>
+  </header>
 
   <!-- Default form register -->
-  <form class="text-center border border-light p-5" action="/register" method="POST">
+  {{!-- <div class="container-fluid"> --}}
+  <form id="behave" class="text-center p-3" action="/" method="POST">
 
-    <p class="h4 mb-4">Sign up</p>
-    <p>That email is already in use, please enter a new one</p>
+
+
+    <p class="h3 blue-me text-center mb-4">Sign Up For SandFit!</p>
+
+    <p class="h3 red-me text-center mb-4">User Credentials Not Recognized</p>
+
+
 
     <div class="form-row mb-4">
       <div class="col">
@@ -42,8 +53,37 @@
     <!-- Sign up button -->
 
     <hr>
-    <button id="signup-button" class="btn btn-info my-4 btn-block">Sign in</button>
+    <button id="signup-button" class="btn my-4 btn-block">Create Account</button>
+
+
   </form>
+  {{!-- </div> --}}
+  <div class="header-after">
+    <h1 id="header-register">What is SandFit?</h1>
+  </div>
+  <div class="container container-pic">
+
+    <div class="img-group-2">
+      <img id="fitguy" src="/images/fitguy.png" alt="not working">
+      <p class="p-1">Customizable workouts!</p>
+
+      <a href="/"><button class="btn waves-effect btn-fit-guy">Sign Up!</button></a>
+    </div>
+    <div class="img-group-2">
+      <img id="fitguy" src="/images/vegtables.png" alt="not working">
+      <p class="p-1">Calories Goals specifically for you
+      </p>
+
+      <a href="/"><button class="btn btn-2 waves-effect btn-fit-guy">Get Started</button></a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a class="footerP" href="/login">Already A User? Login In!</a>
+    <a class="footerP" href="/password">Forgot Your password?</a>
+  </div>
+
+
 
   <!-- Default form register -->
 
