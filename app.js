@@ -8,7 +8,7 @@ let username;
 
 
 var app = express();
-var PORT = process.env.PORT || 8079;
+var PORT = process.env.PORT || 1000;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +36,7 @@ else {
   });
 }
 //****************************************/
+
 
 app.get('/login'), (req, res) => {
   res.render('login')
@@ -68,12 +69,12 @@ app.get('/login', (req, res) => {
   res.render('login')
 })
 
-app.get('/settings',(req,res)=>{
+app.get('/settings', (req, res) => {
   db.users.findAll({
-    where : {
-      email:username
+    where: {
+      email: username
     }
-  }).then(response=>{
+  }).then(response => {
     let bigData = response[0].dataValues
     res.render('settings', bigData)
   })
@@ -90,30 +91,52 @@ app.get('/login/fail', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-  console.log(username)
-  db.users.findAll({
-    attributes: ['calories', 'caloriesToday', 'name'],
-    where: {
-      email: username
+  db.exerciseInfo.findAll({}).then(function (data) {
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i].dataValues)
     }
-  }).then(function (response) {
-    // console.log(username)
-    // console.log(response[0].dataValues)
-    let remaining = response[0].dataValues.calories - response[0].dataValues.caloriesToday
-    let bigData = {
-      username : response[0].dataValues.name,
-      calories: response[0].dataValues.calories,
-      calsToday: response[0].dataValues.caloriesToday,
-      remaining:remaining
-    }
-    console.log(bigData)
-    res.render('dashboard', bigData)
-  })
+    console.log(username)
+    db.users.findAll({
+      attributes: ['calories', 'caloriesToday', 'name'],
+      where: {
+        email: username
+      }
+    }).then(function (response) {
+      // console.log(username)
+      // console.log(response[0].dataValues)
+      let remaining = response[0].dataValues.calories - response[0].dataValues.caloriesToday
+      let bigData = {
+        username: response[0].dataValues.name,
+        calories: response[0].dataValues.calories,
+        calsToday: response[0].dataValues.caloriesToday,
+        remaining: remaining,
+        data: data
+      }
+      console.log(bigData)
+      res.render('dashboard', bigData)
+    })
 
+  })
 })
 
 app.get('/weight', (req, res) => {
   res.render('dailyWeight')
+})
+
+app.post('/weight', (req, res) => {
+  if (typeof req.body.todaysWeight == 'undefined') {
+    res.redirect('/dashboard')
+  }
+  db.users.update({
+    weight: req.body.todaysWeight / 2.2,
+    caloriesToday: 0
+  },
+    { where: { email: username } }
+  ).then(function (data) {
+    console.log('checked')
+    res.redirect('/dashboard')
+
+  })
 })
 
 app.post('/login', (req, res) => {
@@ -122,6 +145,7 @@ app.post('/login', (req, res) => {
   authenticateUser(req.body, res)
 })
 app.post('/login-fail', (req, res) => {
+  username = req.body.email
   authenticateUser(req.body, res)
 })
 
@@ -183,71 +207,44 @@ app.post('/survey', (req, res) => {
 app.get("/dashboard", (req, res) => {
   db.users.findAll({
     attributes: ['calories', 'caloriesToday'],
-    where:{
-      email:username
+    where: {
+      email: username
     }
-  }).then(response=>{
+  }).then(response => {
     console.log('checking here')
-    console.log(response[0].dataValues,username)
-    // res.render('dashboard',bigData)
+    console.log(response[0].dataValues, username)
+    res.render('dashboard', bigData)
   })
-  
+
 });
 
 
-app.post("/dashboard", (req, res) => {
-  // console.log(req.body);
-  db.userHistory.create({
-    exerciseType: req.body.exerciseType,
-    exerciseIntensity: req.body.exerciseIntensity
-    //maybe more data for graphing later
-  }).then(function (results) {
-
-    var arr = [{
-      exerciseType: 'Legs',
-      intensity: 10,
-      image: 'http://image.png',
-      description: 'an exercise 12334'
-    }, {
-      exerciseType: 'Legs',
-      intensity: 10,
-      image: 'http://image.png',
-      description: 'an exercise 4567'
-    }, {
-      exerciseType: 'Legs',
-      intensity: 1,
-      image: 'http://image.png',
-      description: 'an exercise 567789'
-    }, {
-      exerciseType: 'Legs',
-      intensity: 2,
-      image: 'http://image.png',
-      description: 'an exercise 567789'
-    }, {
-      exerciseType: 'Arms',
-      intensity: 3,
-      image: 'http://image.png',
-      description: 'an exercise 567789'
-    }, {
-      exerciseType: 'Arms',
-      intensity: 5,
-      image: 'http://image.png',
-      description: 'an exercise 567789'
-    }
-    ];
-    var newArr = [];
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i].exerciseType == req.body.exerciseType && arr[i].intensity == req.body.exerciseIntensity) {
-        newArr.push(arr[i])
-      }
-    }
+// app.post("/dashboard", (req, res) => {
 
 
+// app.get("/api/dashboard/:condition/:level", (req, res) => {
+//   // console.log(req.body);
+//   // console.log(req.params)
+//   db.exerciseInfo.findAll({
+//     where: {
+//       muscle_group: req.params.condition,
+//       level: req.params.level
+//     }
+//   }).then((results) => {
+//     console.log(results)
+//     res.json(results)
+//   })
+// });
+// app.post("/dashboard", (req, res) => {
 
-    res.json(newArr)
-  })
-})
-
+//   db.userHistory.create({
+//     exerciseType: req.body.exerciseType,
+//     exerciseIntensity: req.body.exerciseIntensity
+//     //maybe more data for graphing later
+//   }).then(function (results) {
+//     res.json(results)
+//   });
+// });
 
 // Function to make sure user has updated today, to take to weight entery screen (via login post [nested])
 let checkDate = (x, res) => {
@@ -264,31 +261,6 @@ let checkDate = (x, res) => {
     }
     else {
       res.redirect('/dashboard')
-    }
-  })
-}
-
-
-//function that is called to make sure login credentials are correct and take user to correct screen (via login post)
-
-let authenticateUser = (x, a) => {
-
-  db.users.findAll({
-    where: {
-      email: x.email
-    }
-  }).then((response) => {
-    if (typeof response[0] === "undefined") { a.redirect('login/fail') }
-    else {
-      if (x.password === response[0].password && response[0].userBorn == 0) {
-        a.redirect('/survey')
-      }
-      else if (x.password === response[0].password && response[0].userBorn === 1) {
-        checkDate(x.email, a);
-      }
-      else {
-        a.redirect('login/fail')
-      }
     }
   })
 }
@@ -320,6 +292,31 @@ let checkEmail = (a, b, c) => {
     }
   })
 }
+
+//function that is called to make sure login credentials are correct and take user to correct screen (via login post)
+
+let authenticateUser = (x, a) => {
+
+  db.users.findAll({
+    where: {
+      email: x.email
+    }
+  }).then((response) => {
+    if (typeof response[0] === "undefined") { a.redirect('login/fail') }
+    else {
+      if (x.password === response[0].password && response[0].userBorn == 0) {
+        a.redirect('/survey')
+      }
+      else if (x.password === response[0].password && response[0].userBorn === 1) {
+        checkDate(x.email, a);
+      }
+      else {
+        a.redirect('login/fail')
+      }
+    }
+  })
+}
+
 
 // Function that will execute once user presses submit on survey ( via post route of survey)
 let updateUser = (x, res) => {
@@ -377,6 +374,7 @@ let getCals = (x) => {
   })
 }
 
+
 app.get('/diary', (req, res) => {
   res.render('diary')
 })
@@ -421,7 +419,8 @@ let apiCall = (x, y) => {
     apiCall2(response.data[0], y)
   })
 }
-// apiCall2()
+
+
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
@@ -429,8 +428,28 @@ db.sequelize.sync().then(function () {
 });
 
 
+//practice food parser request
+// let apiCall = () => {
+//   let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20apple&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+//   axios.get(url).then(function (response) {
+//     console.log(response.data.hints[0].food.nutrients.ENERC_KCAL)
+//   })
+// }
+// apiCall()
+
+// let apicall2 = () => {
+//   let url = "http://api.edamam.com/auto-complete?q=pe&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
+//   axios.get(url).then(function (response) {
+//     console.log(response.data)
+//   })
+// }
+// apicall2()
 
 
-
+// db.sequelize.sync().then(function () {
+//   app.listen(PORT, function () {
+//     console.log("App listening on PORT " + PORT);
+//   });
+// });
 
 

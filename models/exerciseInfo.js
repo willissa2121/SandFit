@@ -5,7 +5,7 @@ module.exports = (function (sequelize, DataTypes) {
         allowNull: false
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
       },
       level: {
@@ -19,10 +19,14 @@ module.exports = (function (sequelize, DataTypes) {
       link : {
         type: DataTypes.STRING,
         allowNull: true
+      },
+      imageLink : {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     },
     {
-        freezeTableNAme: true
+        freezeTableName: true
     })
     return exerciseInfo;
   });
