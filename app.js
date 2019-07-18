@@ -68,6 +68,18 @@ app.get('/login', (req, res) => {
   res.render('login')
 })
 
+app.get('/settings',(req,res)=>{
+  db.users.findAll({
+    where : {
+      email:username
+    }
+  }).then(response=>{
+    let bigData = response[0].dataValues
+    res.render('settings', bigData)
+  })
+
+})
+
 app.post('/register', (req, res) => {
   let email = req.body.email;
   checkEmail(email, req.body, res)
