@@ -78,14 +78,24 @@ app.get('/login/fail', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
+  console.log(username)
   db.users.findAll({
-    attributes: ['calories', 'caloriesToday'],
+    attributes: ['calories', 'caloriesToday', 'name'],
     where: {
       email: username
     }
   }).then(function (response) {
-    console.log(response[0].dataValues)
-    res.render('dashboard')
+    // console.log(username)
+    // console.log(response[0].dataValues)
+    let remaining = response[0].dataValues.calories - response[0].dataValues.caloriesToday
+    let bigData = {
+      username : response[0].dataValues.name,
+      calories: response[0].dataValues.calories,
+      calsToday: response[0].dataValues.caloriesToday,
+      remaining:remaining
+    }
+    console.log(bigData)
+    res.render('dashboard', bigData)
   })
 
 })
@@ -159,7 +169,17 @@ app.post('/survey', (req, res) => {
 })
 
 app.get("/dashboard", (req, res) => {
-  res.render('dashboard')
+  db.users.findAll({
+    attributes: ['calories', 'caloriesToday'],
+    where:{
+      email:username
+    }
+  }).then(response=>{
+    console.log('checking here')
+    console.log(response[0].dataValues,username)
+    // res.render('dashboard',bigData)
+  })
+  
 });
 
 
@@ -273,7 +293,7 @@ let checkEmail = (a, b, c) => {
     console.log(empty)
     if (empty.indexOf(a) === -1) {
       db.users.create({
-        name: b.firstName + b.lastName,
+        name: b.firstName + " " + b.lastName,
         email: b.email,
         password: b.password,
         phoneNumber: b.phone,
@@ -350,7 +370,7 @@ app.get('/diary', (req, res) => {
 })
 app.post('/diary', (req, res) => {
   apiCall(req.body.userfood, req.body.foodQuant)
-  res.redirect('/diary')
+  res.redirect('/dashboard')
 })
 
 //practice food parser request
@@ -377,7 +397,6 @@ let apiCall2 = (x, y) => {
           }
         }
       ).then(function (response) {
-        console.log('worked first time')
       })
     })
   })

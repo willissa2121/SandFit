@@ -31,5 +31,5 @@
     
     
     //populate username on navbar
-      var userFirstName = localStorage.getItem("userFirstName");
-      $("#unique-user").text(userFirstName);
+      // var userFirstName = localStorage.getItem("userFirstName");
+      // $("#unique-user").text(userFirstName);
