@@ -8,7 +8,7 @@ let username;
 
 
 var app = express();
-var PORT = process.env.PORT || 1000;
+var PORT = process.env.PORT || 8080;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -236,7 +236,6 @@ app.get("/api/dashboard/:condition/:level", (req, res) => {
   })
 });
 // app.post("/dashboard", (req, res) => {
-
 //   db.userHistory.create({
 //     exerciseType: req.body.exerciseType,
 //     exerciseIntensity: req.body.exerciseIntensity
@@ -451,5 +450,4 @@ db.sequelize.sync().then(function () {
 //     console.log("App listening on PORT " + PORT);
 //   });
 // });
-
 
