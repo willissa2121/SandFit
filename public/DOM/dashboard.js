@@ -31,7 +31,7 @@ $("#daily-workout").on("click", function (event) {
         newCard.attr("width", "18rem");
 
         let newImage = $("<img>").addClass("card-img-top");
-        // newImage.attr("src", element.image_link)
+        newImage.attr("src", element.imageLink)
         newImage.attr("alt", "Card image cap");
         newCard.append(newImage)
         
@@ -39,18 +39,18 @@ $("#daily-workout").on("click", function (event) {
         newCard.append(newDivCard);
 
         let newCardTitle = $("<h5>").addClass("card-title");
-        newCardTitle.text(element.exercise_name)
+        newCardTitle.text(`Exercise Name: ${element.exercise_name}`)
         newDivCard.append(newCardTitle);
 
         let newCardText = $("<p>").addClass("card-text");
-        newCardText.text(element.description)
+        newCardText.text(`Instructions: ${element.description}`)
         newCardTitle.append(newCardText);
 
         let newUl = $("<ul>").addClass("list-group list-group-flush");
         newDivCard.append(newUl);
 
         let newLi1 = $("<li>").addClass("list-group-item");
-        newLi1.text(element.muscle_group);
+        newLi1.text(`Muscle Group: ${element.muscle_group}`);
         newUl.append(newLi1);
 
         let newLi2 = $("<li>").addClass("list-group-item");
@@ -58,14 +58,10 @@ $("#daily-workout").on("click", function (event) {
         newUl.append(newLi2);
 
         let newLi3 = $("<li>").addClass("list-group-item");
-        newLi3.attr("href", element.video_link);
+        newLi3.attr("href", element.link);
         newUl.append(newLi3);
 
         $("#cardHolder").append(newCard);
-   
- 
-        // newCard.append(`<h1>${element.exercise_name}</h1>`)
-        // $('#cardHolder').append(newCard);
       }
     })
 
@@ -76,7 +72,4 @@ $("#daily-workout").on("click", function (event) {
 //     })
  })
 
-
-//populate username on navbar
-var userFirstName = localStorage.getItem("userFirstName");
-$("#unique-user").text(userFirstName);
+    
