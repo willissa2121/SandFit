@@ -4,7 +4,7 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
-
+require('dotenv').config();
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -97,6 +97,9 @@ app.get('/password/fail', (req, res) => {
 
 app.get('/password', (req, res) => {
   res.render('password')
+})
+app.get("/diet", function(req, res) {
+  res.render("dietRec");
 })
 
 //function that will send email to user containing password if email is recognized;
