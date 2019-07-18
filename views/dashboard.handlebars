@@ -11,7 +11,8 @@
 <body>
   
   <nav style="height:5em" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a id="userName" class="navbar-brand">Hello <span id="unique-user"></span></a>
+    <div id="userName" class="navbar-brand">Hello {{username}}</div>
+    <div id="cal-calc">{{calories}} Daily Calories   -   {{calsToday}} Eaten Today   =   {{remaining}} Calories Left Today!</div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
