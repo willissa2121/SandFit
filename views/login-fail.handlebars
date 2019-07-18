@@ -6,21 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="/assets/login.css">
 </head>
 
 <body>
-  <!-- Default form login -->
-  <form class="text-center border border-light p-5" action="/login-fail" method="POST">
 
-    <p class="h4 mb-4">Sign in</p>
-    <h3>Login credentials not recognized</h3>
-    <h6>Please Try Again</h6>
+  <header id="navbar-label">
+    <h1>SandFit Fitness App</h1>
+  </header>
+  <!-- Default form login -->
+  <form class="text-center p-5" action="/login" method="POST">
+
+    <p class="h4 blue-me mb-4">Sign in</p>
+
+    <p class="red-me">Login Credentials Not Recognized</p>
 
     <!-- Email -->
-    <input type="email" name="email" id="loginFailEmail" class="form-control mb-4" placeholder="E-mail">
+    <input type="email" name="email" id="loginEmail" class="form-control mb-4" placeholder="E-mail">
 
     <!-- Password -->
-    <input type="password" name="password" id="loginFailPassword" class="form-control mb-4" placeholder="Password">
+    <input type="password" name="password" id="loginPassword" class="form-control mb-4" placeholder="Password">
 
     <div class="d-flex justify-content-around">
       <div>
@@ -32,20 +37,44 @@
       </div>
       <div>
         <!-- Forgot password -->
-        <a href="">Forgot password?</a>
+
       </div>
     </div>
 
     <!-- Sign in button -->
-
+    <button id="login-button" class="btn btn-block my-4" type="submit">Sign in</button>
 
     <!-- Register -->
     <p>Not a member?
-      <a href="">Register</a>
+      <a href="/">Register</a>
     </p>
-    <button id="login-fail-button" class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
   </form>
 
+  <div class="header-after">
+    <h1 id="header-register">What is SandFit?</h1>
+  </div>
+  <div class="container container-pic">
+
+    <div class="img-group-2">
+      <img id="fitguy" src="/images/fitguy.png" alt="not working">
+      <p class="p-1">Customizable workouts!</p>
+
+      <a href="/"><button class="btn waves-effect btn-fit-guy">Sign Up!</button></a>
+    </div>
+    <div class="img-group-2">
+      <img id="fitguy" src="/images/vegtables.png" alt="not working">
+      <p class="p-1">Calories Goals Specifically for you!
+      </p>
+
+      <a href="/"><button class="btn btn-2 waves-effect btn-fit-guy">Get Started</button></a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a class="footerP" href="/login">Already A User? Login In!</a>
+    <a class="footerP" href="/password">Forgot Your password?</a>
+  </div>
   <!-- Default form login -->
 
 </body>

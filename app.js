@@ -8,7 +8,7 @@ let username;
 
 
 var app = express();
-var PORT = process.env.PORT || 1000;
+var PORT = process.env.PORT || 8080;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -222,21 +222,20 @@ app.get("/dashboard", (req, res) => {
 // app.post("/dashboard", (req, res) => {
 
 
-// app.get("/api/dashboard/:condition/:level", (req, res) => {
-//   // console.log(req.body);
-//   // console.log(req.params)
-//   db.exerciseInfo.findAll({
-//     where: {
-//       muscle_group: req.params.condition,
-//       level: req.params.level
-//     }
-//   }).then((results) => {
-//     console.log(results)
-//     res.json(results)
-//   })
-// });
+app.get("/api/dashboard/:condition/:level", (req, res) => {
+  // console.log(req.body);
+  // console.log(req.params)
+  db.exerciseInfo.findAll({
+    where: {
+      muscle_group: req.params.condition,
+      level: req.params.level
+    }
+  }).then((results) => {
+    console.log(results)
+    res.json(results)
+  })
+});
 // app.post("/dashboard", (req, res) => {
-
 //   db.userHistory.create({
 //     exerciseType: req.body.exerciseType,
 //     exerciseIntensity: req.body.exerciseIntensity
@@ -332,7 +331,7 @@ let updateUser = (x, res) => {
   ).then(function (data) {
     getCals(x.username)
     console.log('checked')
-    res.redirect('dashboard')
+    res.redirect('/dashboard')
 
   })
 }
@@ -451,5 +450,4 @@ db.sequelize.sync().then(function () {
 //     console.log("App listening on PORT " + PORT);
 //   });
 // });
-
 
