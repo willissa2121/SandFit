@@ -5,7 +5,7 @@ module.exports = (function (sequelize, DataTypes) {
         allowNull: false
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
       },
       level: {
@@ -17,6 +17,10 @@ module.exports = (function (sequelize, DataTypes) {
         allowNull: false
       },
       link : {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      imageLink : {
         type: DataTypes.STRING,
         allowNull: true
       }
