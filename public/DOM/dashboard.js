@@ -70,8 +70,8 @@ $("#daily-workout").on("click", function (event) {
         $("#cardHolder").append(newCard);
         // console.log(element)
       }
-      let newH1 = $("<h1>").text("Your Exercises")
-      $("#new").append(newH1)
+      let newH2 = $("<h2>").text("Your Exercises")
+      $(".new").append(newH2)
     })
 
   //stores user input into userHistory table
