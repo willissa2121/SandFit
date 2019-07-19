@@ -95,8 +95,7 @@ app.get('/dashboard', (req, res) => {
       username: response[0].dataValues.name,
       calories: response[0].dataValues.calories,
       calsToday: response[0].dataValues.caloriesToday,
-      remaining: remaining,
-      data: data
+      remaining: remaining
     }
     // console.log(bigData)
     res.render('dashboard', bigData)
