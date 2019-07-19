@@ -2,22 +2,52 @@
   color:#0066ee;
   background:#FFF;
 } */
+#image{
+  background-image: url("https://i2.wp.com/citris-uc.org/wp-content/uploads/2013/12/Health-blue-e1429679140877.jpg?resize=1013%2C567&ssl=1");
+  background-size: cover;
+  opacity: .9;
+}
 
 #navbar-label{
-  background:#0066ee;
+  background: #2F66A9;
   height:7vh;
   width: 100%;
-  color:white;
+  color: white ;
   margin-bottom:2vh;
   display:flex;
   justify-content:center;
+  height: 5em;
+  margin-bottom:0px;
+}
+
+h1 {
+  padding-top:10px;
+  font-family: 'Literata', serif;
+
+}
+
+#userName {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: 'Literata', serif;
+}
+
+#cal-calc {
+  /* font-weight: bold; */
+  padding-left: 190px;
+  color:white;
 }
 
 .btn{
   background:#0066ee;
   color:#fff;
-
 }
+
+#image {
+  height:100vh;
+  border-bottom: solid black 3px;
+}
+
 
 #fitguy{
   background:#fff;
@@ -40,7 +70,7 @@
 }
 
 #header-register{
-  color:#0066ee;
+  color:#08B6CE;
   font-weight:300;
   font-size:35px;
   margin-top:2vh;
@@ -88,11 +118,15 @@ a:hover{
 }
 
 .p-1{
-  color:#0066ee;
+  color:#08B6CE;
 }
 .header-after{
   display:flex;
   justify-content:center;
+}
+
+#login-button {
+  background: #2F66A9;
 }
 
 .btn-2{
@@ -109,9 +143,6 @@ a:hover{
   justify-content:space-around;
   align-items:center;
   padding:0;
-}
-.footerP{
-  color:#FFF;
 }
 
 .container-fluid{
@@ -146,10 +177,14 @@ a:hover{
 }
 
 .blue-me{
-  color:#0066ee;
+  color: white;
 }
 .red-me{
   color:red;
+}
+
+a {
+  color: white;
 }
 
 @media only screen and (min-width: 800px) {
