@@ -4,20 +4,14 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
-<<<<<<< HEAD
-
-require('dotenv').config();
-
-=======
 let bcrypt = require('bcrypt');
 const saltRounds = 10;
->>>>>>> master
 let username;
 
 
 
 var app = express();
-var PORT = process.env.PORT || 8079;
+var PORT = process.env.PORT || 8080;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -150,7 +144,7 @@ app.get('/password/fail', (req, res) => {
 app.get('/password', (req, res) => {
   res.render('password')
 })
-app.get("/diet", function(req, res) {
+app.get("/diet", function (req, res) {
   res.render("dietRec");
 })
 
@@ -207,7 +201,7 @@ var totalFat = 0;
 var totalCarbs = 0;
 var totalProtein = 0;
 var totalSodium = 0;
-app.post("/diet", function(req, res) {
+app.post("/diet", function (req, res) {
   nuApiCall(0, req.body.food);
   function nuApiCall(i, food) {
     var queryURL = "https://api.edamam.com/api/nutrition-data?";
@@ -217,15 +211,15 @@ app.post("/diet", function(req, res) {
     axios({
       method: "get",
       url: queryURL
-    }).then(function(result) {
+    }).then(function (result) {
       console.log(result.data);
       totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
       totalFat += result.data.totalNutrients.FAT.quantity;
       totalCarbs += result.data.totalNutrients.CHOCDF.quantity;
       totalProtein += result.data.totalNutrients.PROCNT.quantity;
       totalSodium += result.data.totalNutrients.NA.quantity;
-      if (i+1 >= food.length){
-        nuApiCall(i+1, food);
+      if (i + 1 >= food.length) {
+        nuApiCall(i + 1, food);
       }
       res.send({
         energy: totalEnergy,

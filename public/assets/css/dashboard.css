@@ -43,11 +43,6 @@ h1 {
     color:white;
 }
 
-<<<<<<< HEAD
-
-=======
-/* #exercise-cards: */
->>>>>>> ff503fdb44aed5972b8f6769039527bcdfb4fc11
 
 /* .dropdown-item {
     width: 170%;
@@ -80,3 +75,17 @@ h1 {
 
     background-color: lightskyblue;
 }
+
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
+  }
