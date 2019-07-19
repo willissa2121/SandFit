@@ -156,11 +156,11 @@ app.get('/password', (req, res) => {
   res.render('password')
 })
 
-app.get("/diet", function(req, res) {
+app.get("/diet", function (req, res) {
   if (username)
     res.render("dietRec");
   else
-  res.redirect('/');
+    res.redirect('/');
 
 })
 
@@ -228,7 +228,7 @@ app.post("/diet", function (req, res) {
       method: "get",
       url: queryURL
 
-    }).then(function(result) {
+    }).then(function (result) {
 
       totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
       totalFat += result.data.totalNutrients.FAT.quantity;
