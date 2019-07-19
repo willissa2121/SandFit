@@ -1,6 +1,17 @@
-<nav style="height:5em" class="navbar navbar-expand-lg navbar-light bg-light">
+<head>
+  <link rel="stylesheet" type="text/css" href="/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/assets/register.css">
+  <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
+
+</head>
+
+<header id="navbar-label">
+    <h1>SandFit Fitness App</h1>
+  </header>
+
+<nav style="height:3em" class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div id="userName" class="navbar-brand">Hello {{username}}</div>
-  <div id="cal-calc">{{calories}} Daily Calories - {{calsToday}} Eaten Today = {{remaining}} Calories Left Today!</div>
+  <div id="cal-calc">{{calories}}  Daily Calories  -  {{calsToday}}  Eaten Today  =  {{remaining}} Calories Left Today!</div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -12,9 +23,9 @@
 <form>
   <div class="container">
     <div class="row">
-      <div class="col 12 text-center">
-        <div class="btn-group dropright mt-4">
-          <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown"
+      <div class="col-md-12 text-center">
+        <div class="btn-group mt-4">
+          <button type="button" id="dropdownMenu1" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             What would you like to do today?
           </button>
@@ -26,25 +37,29 @@
             <a value="5" class="dropdown-item">core</a>
           </div>
         </div>
-      </div>
+      {{!-- </div>
     </div>
-  </div>
-  <div class="container">
+  </div> --}}
+  {{!-- <div class="container">
     <div class="row">
-      <div class="col 12 text-center">
-        <div class="btn-group dropright mt-4">
-          <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown"
+      <div class="col 12 text-center"> --}}
+        <div class="btn-group mt-4">
+          <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            What intensity would you like?
+            What skill level would you like?
           </button>
           <div id="intensity" class="dropdown-menu">
             <a value="6" class="dropdown-item">1</a>
             <a value="7" class="dropdown-item">2</a>
           </div>
         </div>
+      </div>
+    </div>
+    </div>
+
         <div class="container">
           <div class="row">
-            <div class="col-md-12 mt-5">
+            <div class="col-md-12 mt-5 text-center">
               <button id="daily-workout" type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
@@ -59,15 +74,17 @@
     </div>
   </div>
 </form>
-<div class="container">
+<br>
+<div id="cardDisplay" class="container">
   <div class="row">
-    <div class="col-md-12">
-      <h1>Your Exercises:</h1>
+    <div id ="cardColumn" class="col-md-12 text-center">
+      {{!-- <h1>Your Exercises</h1> --}}
+      <div id="new"></div>
       <div id="cardHolder"></div>
-      <br>
-
     </div>
   </div>
 </div>
+<br>
+
 
 <script src="DOM/dashboard.js"></script>
