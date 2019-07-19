@@ -24,7 +24,11 @@ $("#submit-food").on("click", function(evnet) {
     event.preventDefault();
     if (foodList) {  
         $.post("/diet", {food: foodList}, function(data) {
-
+            $("<p>").text("Calories: " + data.energy + " kcal").appendTo($("#display-nutrition"));
+            $("<p>").text("Fat: " + data.fat + " g").appendTo($("#display-nutrition"));
+            $("<p>").text("Carbohydrates: " + data.carbs + " g").appendTo($("#display-nutrition"));
+            $("<p>").text("Protein: " + data.protein + " g").appendTo($("#display-nutrition"));
+            $("<p>").text("Sodium: " + data.sodium + " mg").appendTo($("#display-nutrition"));
         })
     }
 });
