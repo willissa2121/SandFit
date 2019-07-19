@@ -108,7 +108,18 @@ app.get('/dashboard', (req, res) => {
 })
 
 app.get('/weight', (req, res) => {
-  res.render('dailyWeight')
+  db.users.findAll({
+    assets: ['weight'],
+    where: {
+      email: username
+    }
+  }).then(response => {
+    let bigO = {
+      weight: response[0].dataValues.weight * 2.2
+    }
+    res.render('dailyWeight', bigO)
+  })
+
 })
 
 app.post('/weight', (req, res) => {

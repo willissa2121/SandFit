@@ -9,21 +9,27 @@
 </head>
 
 <body>
-  <h1>This is your daily weight page</h1>
 
-  <form action="/weight" method="POST">
-    {{!-- <input name="todaysWeight" type="number" placeholder="todays Weight"> --}}
+  <div class="container text-center">
+    <h1>Enter Todays Weight to get Started!</h1>
+
+    <form action="/weight" method="POST">
+      {{!-- <input name="todaysWeight" type="number" placeholder="todays Weight"> --}}
 
 
-    <div class="def-number-input number-input safari_only">
-      <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-      <input class="quantity" min="0" name="todaysWeight" type="number">
-      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-      <button type="submit">Enter</button>
-    </div>
+      <div id="flex-me" class="def-number-input number-input safari_only">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn btn-danger"
+          type="button">-</button>
+        <input class="quantity form-control" min="0" name="todaysWeight" type="number" placeholder={{weight}}>
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn btn-success"
+          type="button">+</button>
 
-    <button type="submit">Or press here if you prefer not to answer</button>
-  </form>
+      </div>
+      <button type="submit" class="btn btn-primary">Update My Weight And Get Started!</button>
+
+      <a href="/dashboard">Or Press Here if you Prefer not to answer</a>
+    </form>
+  </div>
 
 </body>
 
