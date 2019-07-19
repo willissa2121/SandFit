@@ -1,0 +1,36 @@
+
+#cardHolder {
+    display: flex;
+    flex-wrap: wrap ;
+    justify-content: space-between;
+}
+.card-img-top { 
+    width:50vh;
+    height:50vh;
+}
+
+.card {
+    width:28%;
+    /* height:100%; */
+}
+h1 {
+    padding-top:10px;
+    font-family: 'Literata', serif;
+
+}
+
+#userName {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Literata', serif;
+}
+
+#cal-calc {
+    /* font-weight: bold; */
+    padding-left: 190px;
+    color:white;
+}
+
+#exercise-cards:
+
+
