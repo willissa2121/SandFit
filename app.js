@@ -5,6 +5,7 @@ var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
 let bcrypt = require('bcrypt');
+let moment = require('moment');
 const saltRounds = 10;
 let username;
 
@@ -145,7 +146,10 @@ app.get('/password', (req, res) => {
   res.render('password')
 })
 app.get("/diet", function (req, res) {
-  res.render("dietRec");
+  if (username)
+    res.render("dietRec");
+  else 
+    res.redirect("/");
 })
 
 //function that will send email to user containing password if email is recognized;
@@ -221,6 +225,19 @@ app.post("/diet", function (req, res) {
       if (i + 1 >= food.length) {
         nuApiCall(i + 1, food);
       }
+      db.diets.create({
+        userId: username,
+        date: moment().format('L'),
+        nutrients: JSON.stringify({
+          energy: totalEnergy,
+          fat: totalFat,
+          carbs: totalCarbs,
+          protein: totalProtein,
+          sodium: totalSodium
+        }),
+        type: "breakfast",
+        food: JSON.stringify(food)
+      });
       res.send({
         energy: totalEnergy,
         fat: totalFat,
