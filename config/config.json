@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "Passwordsucks!1",
     "database": "practice_db",
     "host": "localhost",
     "port": 3306,
@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "root",
-    "password": "Passwordsucks!1",
+    "password": "nst032596",
     "database": "practice_db",
     "host": "localhost",
     "port": 3306,
