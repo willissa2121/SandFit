@@ -1,0 +1,174 @@
+#navbar-label{
+  background:#0066ee;
+  height:7vh;
+  width: 100%;
+  color:white;
+  margin-bottom:2vh;
+  display:flex;
+  justify-content:center;
+}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#login-button{
+  color:#fff;
+  background:#06e
+}
+
+.blue-me{
+  color:#06e;
+}
+
+.btn{
+  background:#0066ee;
+  color:#fff;
+
+}
+
+#fitguy{
+  background:#fff;
+  border-radius:50%;
+  height:40vh;
+  width:60vw;
+  margin-top:10vh;
+  margin: 0 auto;
+  padding:2%;
+}
+
+.container-pic{
+  margin-top:5vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding-bottom:0;
+  padding:0;
+}
+
+#header-register{
+  color:#0066ee;
+  font-weight:300;
+  font-size:35px;
+  margin-top:2vh;
+  margin-bottom:7vh;
+  border-bottom:2px solid #0066ee
+}
+.img-group {
+  background:#FFF;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:98vw;
+}
+p{
+  color:#FFF;
+  font-weight:500;
+  font-size:20px;
+  text-align: justify;
+}
+.container-fluid{
+  margin-left:0;
+  margin-right:0;
+  padding-left:0;
+  padding-right:0
+}
+
+.btn-fit-guy{
+  background:#fff;
+  color:#0066ee;
+}
+
+a:hover{
+  cursor:pointer
+}
+
+.img-group-2 {
+  background:#FFF;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:98vw;
+
+}
+
+.p-1{
+  color:#0066ee;
+}
+.header-after{
+  display:flex;
+  justify-content:center;
+}
+
+.btn-2{
+  background:#0066ee;
+  color:#fff;
+}
+
+.footer{
+  color:#FFF;
+  background:#000;
+  height:10vh;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  align-items:center;
+  padding:0;
+}
+.footerP{
+  color:#FFF;
+}
+
+.container-fluid{
+  width:100vw;
+  padding:0;
+  margin:0;
+}
+
+.container-pic{
+  width:100vw;
+  padding:0;
+  margin:0;
+}
+
+#body{
+  margin:0;
+  padding:0;
+  width:100vw;
+  margin-right:0
+}
+.text-center{
+  width:98vw;
+  margin:0;
+  margin-right:0;
+  padding:0;
+}
+
+#behave{
+  margin:0;
+  margin-right:0;
+  padding:0;
+}
+
+.blue-me{
+  color:#0066ee;
+}
+.red-me{
+  color:red;
+}
+
+@media only screen and (min-width: 800px) {
+  #fitguy{
+    height:20vh;
+    width:20vw;
+  }
+  .container-pic{
+    display:flex;
+    flex-direction:row;
+    padding:0;
+    margin: 0;
+  }
+}
