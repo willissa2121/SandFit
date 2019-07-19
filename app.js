@@ -336,28 +336,31 @@ let authenticateUser = (x, a) => {
       email: x.email
     }
   }).then((response) => {
-    if (!x.password) { console.log('checked') }
-    bcrypt.compare(x.password, response[0].password, function (err, resEncrypt) {
-      // console.log(res);
-      console.log(x.password)
-      console.log(response[0].password)
+    if (x.password == false || response[0] == false) { a.redirect('/login/fail') }
+    else {
+      bcrypt.compare(x.password, response[0].password, function (err, resEncrypt) {
+        // console.log(res);
+        console.log(x.password)
+        console.log(response[0].password)
 
 
 
-      if (typeof response[0] === "undefined") { a.redirect('login/fail') }
-      else {
-        if (resEncrypt && response[0].userBorn == 0) {
-          a.redirect('/survey')
-        }
-        else if (resEncrypt && response[0].userBorn === 1) {
-          checkDate(x.email, a);
-        }
+        if (typeof response[0] === "undefined") { a.redirect('login/fail') }
         else {
-          a.redirect('login/fail')
+          if (resEncrypt && response[0].userBorn == 0) {
+            a.redirect('/survey')
+          }
+          else if (resEncrypt && response[0].userBorn === 1) {
+            checkDate(x.email, a);
+          }
+          else {
+            a.redirect('login/fail')
+          }
         }
-      }
-    })
+      })
+    }
   })
+
 }
 
 
