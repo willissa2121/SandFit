@@ -1,0 +1,108 @@
+
+
+body {
+    background-color: lightskyblue;
+}
+
+/* #image{
+    background-image: url("https://i2.wp.com/citris-uc.org/wp-content/uploads/2013/12/Health-blue-e1429679140877.jpg?resize=1013%2C567&ssl=1");
+    background-size: cover;
+    opacity: .9;
+  } */
+
+
+  #bg {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+      
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+
+    /* Add the blur effect */
+    filter: blur(13px);
+    -webkit-filter: blur(13px);
+  }
+
+  /* Container holding the image and the text */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+
+/* Centered text */
+#formContainer {
+    position: absolute;
+    margin-top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 25px;
+    background: lightskyblue;
+    padding: 20px; 
+    width: 33%;
+    height: 50vh; 
+
+    opacity: 0.7;
+
+  }
+
+#form {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+#food-name {
+
+    border-radius: 25px;
+    border: 2px solid #87CEFA;
+    padding: 20px; 
+    width: 200px;
+    height: 15px; 
+
+    margin-bottom: 2px;
+
+}
+
+#foodQuant {
+
+    border-radius: 25px;
+    border: 2px solid #87CEFA;
+    padding: 20px; 
+    width: 200px;
+    height: 15px;
+
+    margin-bottom: 2px;
+
+}
+
+#submit {
+
+    border-radius: 25px;
+    border: lightskyblue;
+    background-color: transparent ;
+    width: 100px;
+    height: 20%;
+
+    color: white;
+
+    margin-bottom: 2px;
+
+}
+
+::placeholder {
+    color: lightskyblue;
+    opacity: 1; /* Firefox */
+  }
+
+  #title {
+    margin-top: 20%;
+    color: white;
+}

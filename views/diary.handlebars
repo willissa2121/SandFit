@@ -6,16 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+
+ <link rel="stylesheet" type="text/css" href="/assets/css/diary.css">
+  <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
+
 </head>
 
-<body>
 
-  <form action="/diary" method="POST">
-    <input type="text" id="food-name" name="userFood">
-    <input type="number" id="foodQuant" name="foodQuant">
-    <button type="submit">Add Food</button>
-  </form>
+
+<body>
+<div class="container">
+<img src="https://i2.wp.com/citris-uc.org/wp-content/uploads/2013/12/Health-blue-e1429679140877.jpg?resize=1013%2C567&ssl=1" id="bg" alt="">
+
+  <div id="formContainer">
+    <p id="title">Whddyaa eat buddy?</p>
+    <div id="form">
+      <form action="/diary" method="POST">
+        <input type="text" id="food-name" placeholder="Ex. tacos" name="userFood">
+        <input type="number" id="foodQuant" placeholder="How many?"name="foodQuant">
+        <button id="submit"type="submit">Add Food</button>
+      </form>
+    </div>
+  </div>
+
+</div>
 
 </body>
+
 
 </html>
