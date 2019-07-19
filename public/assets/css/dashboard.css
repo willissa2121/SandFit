@@ -31,6 +31,36 @@ h1 {
     color:white;
 }
 
-#exercise-cards:
+/* #exercise-cards: */
 
+/* .dropdown-item {
+    width: 170%;
 
+}
+
+.dropdown-menu {
+
+} */
+
+#exercise {
+
+    width: 100%;
+
+}
+
+.dropdown-menu {
+
+    /* width:80%; */
+    text-align: center;
+    color: lightskyblue;
+} 
+
+#intensity {
+
+    width: 100%;
+}
+
+#daily-workout {
+
+    background-color: lightskyblue;
+}

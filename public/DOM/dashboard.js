@@ -7,20 +7,25 @@ const workoutData = {
 $("#exercise a").on("click", function () {
   workoutData.exerciseType = $(this).html();
   // console.log(workoutData.excerciseType)
+
+  //grab exercise name and append
+  $('#ddm1Text').empty();
+  $('#ddm1Text').append( " " + workoutData.exerciseType)
 });
 
 //grabbing user input
 $("#intensity a").on("click", function () {
   workoutData.exerciseIntensity = $(this).html();
   // console.log(workoutData.excerciseIntensity)
+
+  //grab exercise name and append
+  $('#ddm2Text').empty();
+  $('#ddm2Text').append( " " + workoutData.exerciseIntensity)
 });
 
 $("#daily-workout").on("click", function (event) {
   event.preventDefault();
-  $("#cardHolder").empty();
-
-  
-  $("#new").empty();
+  $(".card").empty();
   // console.log(workoutData);
 
   $.get('/api/dashboard/' + workoutData.exerciseType + '/' + workoutData.exerciseIntensity)
@@ -41,42 +46,30 @@ $("#daily-workout").on("click", function (event) {
         let newDivCard = $("<div>").addClass("card-body");
         newCard.append(newDivCard);
 
-        let newCardTitle = $("<h2>").addClass("card-title text-center");
+        let newCardTitle = $("<h5>").addClass("card-title");
         newCardTitle.text(element.exercise_name)
         newDivCard.append(newCardTitle);
 
-        // let newCardText = $("<p>").addClass("card-text");
-        // newCardText.text(`Instructions: ${element.description}`)
-        // newCardTitle.append(newCardText);
+        let newCardText = $("<p>").addClass("card-text");
+        newCardText.text(element.description)
+        newCardTitle.append(newCardText);
 
         let newUl = $("<ul>").addClass("list-group list-group-flush");
         newDivCard.append(newUl);
 
-        let newLi1 = $("<li>").addClass("list-group-item text-center");
-        newLi1.html(`<h3>Instruction:</h3>`);
+        let newLi1 = $("<li>").addClass("list-group-item");
+        newLi1.text(element.muscle_group);
         newUl.append(newLi1);
 
         let newLi2 = $("<li>").addClass("list-group-item");
-        newLi2.text(element.description);
+        newLi2.text(element.level);
         newUl.append(newLi2);
 
-        let newLi3 = $("<a>").addClass("list-group-item");
+        let newLi3 = $("<li>").addClass("list-group-item");
         newLi3.attr("href", element.link);
         newUl.append(newLi3);
 
-        
         $("#cardHolder").append(newCard);
-        // console.log(element)
       }
-      let newH1 = $("<h1>").text("Your Exercises")
-      $("#new").append(newH1)
     })
-
-  //stores user input into userHistory table
-  //   $.post("/dashboard", workoutData)
-  //     .then(function (data) {
-  //       console.log(data)
-  //     })
 })
-
-
