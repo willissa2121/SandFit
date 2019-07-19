@@ -67,6 +67,8 @@ $("#daily-workout").on("click", function (event) {
 
         let newLi3 = $("<li>").addClass("list-group-item");
         newLi3.attr("href", element.link);
+        newLi3.text('Click here for video')
+        // newUl.html($("<a></a>").attr("href", element.link))
         newUl.append(newLi3);
 
         $("#cardHolder").append(newCard);

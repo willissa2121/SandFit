@@ -1,4 +1,16 @@
 
+#navbar-label{
+    background:#2F66A9;
+    height:7vh;
+    width: 100%;
+    color:white;
+    margin-bottom:2vh;
+    display:flex;
+    justify-content:center;
+    height: 5em;
+    margin-bottom:0px;
+  }
+  
 #cardHolder {
     display: flex;
     flex-wrap: wrap ;
@@ -31,7 +43,6 @@ h1 {
     color:white;
 }
 
-/* #exercise-cards: */
 
 /* .dropdown-item {
     width: 170%;

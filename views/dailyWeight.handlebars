@@ -12,8 +12,15 @@
   <h1>This is your daily weight page</h1>
 
   <form action="/weight" method="POST">
-    <input name="todaysWeight" type="number" placeholder="todays Weight">
-    <button type="submit">Enter</button>
+    {{!-- <input name="todaysWeight" type="number" placeholder="todays Weight"> --}}
+
+
+    <div class="def-number-input number-input safari_only">
+      <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+      <input class="quantity" min="0" name="todaysWeight" type="number">
+      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+      <button type="submit">Enter</button>
+    </div>
 
     <button type="submit">Or press here if you prefer not to answer</button>
   </form>

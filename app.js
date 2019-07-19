@@ -4,6 +4,8 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+let bcrypt = require('bcrypt');
+const saltRounds = 10;
 let username;
 
 
@@ -80,10 +82,8 @@ app.get('/login/fail', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
   db.exerciseInfo.findAll({}).then(function (data) {
-    for (var i = 0; i < data.length; i++) {
-      console.log(data[i].dataValues)
-    }
-    console.log(username)
+
+
     db.users.findAll({
       attributes: ['calories', 'caloriesToday', 'name'],
       where: {
@@ -100,10 +100,9 @@ app.get('/dashboard', (req, res) => {
         remaining: remaining,
         data: data
       }
-      console.log(bigData)
+      // console.log(bigData)
       res.render('dashboard', bigData)
     })
-
   })
 })
 
@@ -121,7 +120,7 @@ app.post('/weight', (req, res) => {
   },
     { where: { email: username } }
   ).then(function (data) {
-    console.log('checked')
+    // console.log('checked')
     res.redirect('/dashboard')
 
   })
@@ -153,7 +152,7 @@ app.post('/password', (req, res) => {
       email: req.body.email
     }
   }).then(function (response) {
-    console.log(response[0])
+    // console.log(response[0])
     if (typeof response[0] === "undefined") { res.redirect('/password/fail') }
     else {
 
@@ -174,7 +173,7 @@ app.post('/password', (req, res) => {
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          console.log(error);
+          // console.log(error);
         } else {
           console.log('Email sent: ' + info.response);
         }
@@ -188,7 +187,7 @@ app.post('/password', (req, res) => {
 })
 
 app.post('/survey', (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   updateUser(req.body, res)
 })
 
@@ -199,8 +198,8 @@ app.get("/dashboard", (req, res) => {
       email: username
     }
   }).then(response => {
-    console.log('checking here')
-    console.log(response[0].dataValues, username)
+    // console.log('checking here')
+    // console.log(response[0].dataValues, username)
     res.render('dashboard', bigData)
   })
 
@@ -219,7 +218,7 @@ app.get("/api/dashboard/:condition/:level", (req, res) => {
       level: req.params.level
     }
   }).then((results) => {
-    console.log(results)
+    // console.log(results)
     res.json(results)
   })
 });
@@ -254,53 +253,68 @@ let checkDate = (x, res) => {
 
 //function that will execute to make sure user login is unique(via register post route)
 let checkEmail = (a, b, c) => {
-  let empty = []
-  db.users.findAll({
-    attributes: ['email']
-  }).then(function (response) {
-    for (var i = 0; i < response.length; i++) {
-      empty.push(response[i].dataValues.email)
-    }
-    console.log(empty)
-    if (empty.indexOf(a) === -1) {
-      db.users.create({
-        name: b.firstName + " " + b.lastName,
-        email: b.email,
-        password: b.password,
-        phoneNumber: b.phone,
-      }).then(function (response) {
-        console.log('look')
-        c.redirect('/login')
-      })
-    }
-    else {
-      console.log('fail')
-      c.redirect('/failed')
-    }
-  })
+  bcrypt.hash(b.password, saltRounds, function (err, hash) {
+    if (err) throw err;
+
+
+    let empty = []
+    db.users.findAll({
+      attributes: ['email']
+    }).then(function (response) {
+      for (var i = 0; i < response.length; i++) {
+        empty.push(response[i].dataValues.email)
+      }
+      // console.log(empty)
+      if (empty.indexOf(a) === -1) {
+        db.users.create({
+          name: b.firstName + " " + b.lastName,
+          email: b.email,
+          password: hash,
+          phoneNumber: b.phone,
+        }).then(function (response) {
+          // console.log('look')
+          c.redirect('/login')
+        })
+      }
+      else {
+        // console.log('fail')
+        c.redirect('/failed')
+      }
+    })
+  });
 }
 
 //function that is called to make sure login credentials are correct and take user to correct screen (via login post)
 
 let authenticateUser = (x, a) => {
 
+
   db.users.findAll({
     where: {
       email: x.email
     }
   }).then((response) => {
-    if (typeof response[0] === "undefined") { a.redirect('login/fail') }
-    else {
-      if (x.password === response[0].password && response[0].userBorn == 0) {
-        a.redirect('/survey')
-      }
-      else if (x.password === response[0].password && response[0].userBorn === 1) {
-        checkDate(x.email, a);
-      }
+    if (!x.password) { console.log('checked') }
+    bcrypt.compare(x.password, response[0].password, function (err, resEncrypt) {
+      // console.log(res);
+      console.log(x.password)
+      console.log(response[0].password)
+
+
+
+      if (typeof response[0] === "undefined") { a.redirect('login/fail') }
       else {
-        a.redirect('login/fail')
+        if (resEncrypt && response[0].userBorn == 0) {
+          a.redirect('/survey')
+        }
+        else if (resEncrypt && response[0].userBorn === 1) {
+          checkDate(x.email, a);
+        }
+        else {
+          a.redirect('login/fail')
+        }
       }
-    }
+    })
   })
 }
 
@@ -318,7 +332,7 @@ let updateUser = (x, res) => {
     { where: { email: x.username } }
   ).then(function (data) {
     getCals(x.username)
-    console.log('checked')
+    // console.log('checked')
     res.redirect('/dashboard')
 
   })
@@ -332,7 +346,7 @@ let getCals = (x) => {
       email: x
     }
   }).then(function (response) {
-    console.log(response[0].dataValues)
+    // console.log(response[0].dataValues)
     let fatPercentage = Number(response[0].dataValues.height / (response[0].dataValues.weight * 3.68))
     let fatFreeMass = (response[0].dataValues.weight - (response[0].dataValues.weight * fatPercentage))
     let calsTemp = (500 + (22 * fatFreeMass))
@@ -355,7 +369,7 @@ let getCals = (x) => {
         }
       }
     ).then(function (response) {
-      console.log('worked first time')
+      // console.log('worked first time')
     })
 
   })
@@ -366,12 +380,11 @@ app.get('/diary', (req, res) => {
   res.render('diary')
 })
 app.post('/diary', (req, res) => {
-  apiCall(req.body.userfood, req.body.foodQuant)
-  res.redirect('/dashboard')
+  apiCall(req.body.userfood, req.body.foodQuant, res)
 })
 
 //practice food parser request
-let apiCall2 = (x, y) => {
+let apiCall2 = (x, y, res) => {
   let url = "https://api.edamam.com/api/food-database/parser?nutrition-type=logging&ingr=red%20" + x + "&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
   axios.get(url).then(function (response) {
     let singleCal = (response.data.hints[0].food.nutrients.ENERC_KCAL)
@@ -384,7 +397,7 @@ let apiCall2 = (x, y) => {
     }).then(function (response) {
       let currentCals = (response[0].dataValues.caloriesToday)
       let todayCals = currentCals += totalCal
-      console.log(username)
+      // console.log(username)
       db.users.update({
         caloriesToday: todayCals
       },
@@ -394,21 +407,22 @@ let apiCall2 = (x, y) => {
           }
         }
       ).then(function (response) {
+        res.redirect('/dashboard')
       })
     })
   })
 }
 // apiCall('dorito')
 
-let apiCall = (x, y) => {
+let apiCall = (x, y, res) => {
   let url = "http://api.edamam.com/auto-complete?q=" + x + "&limit=10&app_id=153d107f&app_key=b7785b3de6ea8b46bb8efa79c39c4166"
   axios.get(url).then(function (response) {
-    apiCall2(response.data[0], y)
+    apiCall2(response.data[0], y, res)
   })
 }
 
 
-db.sequelize.sync().then(function () {
+db.sequelize.sync({ force: false }).then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
