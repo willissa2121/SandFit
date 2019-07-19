@@ -33,7 +33,7 @@ $("#daily-workout").on("click", function (event) {
         let newCard = $('<div>').addClass("card");
         newCard.attr("width", "18rem");
 
-        let newImage = $("<img>").addClass("card-img-top");
+        let newImage = $("<img>").addClass("card-img-top text-center");
         newImage.attr("src", element.imageLink)
         newImage.attr("alt", "Card image cap");
         newCard.append(newImage)

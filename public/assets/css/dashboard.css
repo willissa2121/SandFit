@@ -15,9 +15,10 @@
     display: flex;
     flex-wrap: wrap ;
     justify-content: space-between;
+    margin-bottom:10vh;
 }
 .card-img-top { 
-    width:50vh;
+    width:40vh;
     height:50vh;
 }
 
@@ -42,6 +43,21 @@ h1 {
     padding-left: 190px;
     color:white;
 }
+
+
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
+  }
 
 
 
