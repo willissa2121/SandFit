@@ -213,8 +213,8 @@ app.post("/diet", function(req, res) {
   nuApiCall(0, req.body.food);
   function nuApiCall(i, food) {
     var queryURL = "https://api.edamam.com/api/nutrition-data?";
-    queryURL += "app_id=" + process.env.APP_ID;
-    queryURL += "&app_key=" + process.env.API_KEY;
+    queryURL += "app_id=20bb1cb1";
+    queryURL += "&app_key=6cf97563ddd5acf35930f28d12067a06";
     queryURL += "&ingr=" + food[i];
     axios({
       method: "get",
