@@ -43,6 +43,40 @@ h1 {
     color:white;
 }
 
+<<<<<<< HEAD
 
+=======
+/* #exercise-cards: */
+>>>>>>> ff503fdb44aed5972b8f6769039527bcdfb4fc11
 
+/* .dropdown-item {
+    width: 170%;
 
+}
+
+.dropdown-menu {
+
+} */
+
+#exercise {
+
+    width: 100%;
+
+}
+
+.dropdown-menu {
+
+    /* width:80%; */
+    text-align: center;
+    color: lightskyblue;
+} 
+
+#intensity {
+
+    width: 100%;
+}
+
+#daily-workout {
+
+    background-color: lightskyblue;
+}
