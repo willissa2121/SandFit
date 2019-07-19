@@ -4,6 +4,7 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+let bcrypt = require('bcrypt');
 let username;
 
 
