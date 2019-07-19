@@ -1,0 +1,19 @@
+
+#navbar-label{
+  background:#2F66A9;
+  height:7vh;
+  width: 100%;
+  color:white;
+  /* margin-bottom:2vh; */
+
+  height: 5em;
+  margin-bottom:0px;
+  /* position: relative; */
+  
+}
+
+.label{
+  background:black;
+  color: #FFF;
+  width:100vw;
+}
