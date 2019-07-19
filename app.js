@@ -297,6 +297,7 @@ let authenticateUser = (x, a) => {
       email: x.email
     }
   }).then((response) => {
+    if (!x.password) { console.log('checked') }
     bcrypt.compare(x.password, response[0].password, function (err, resEncrypt) {
       // console.log(res);
       console.log(x.password)
