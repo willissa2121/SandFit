@@ -11,14 +11,20 @@
 
 <body>
 
-  <header class="text-center" id="navbar-label">
+  {{!-- <header class="text-center" id="navbar-label">
     <h1>SandFit Fitness App</h1>
   </header>
-  <h1 class="label text-center">Enter Todays Weight to get Started!</h1>
+  <h1 class="label text-center">Enter Todays Weight to get Started!</h1> --}}
 
-  <div class="container text-center">
+{{!-- ------------- --}}
+<div class="container">
+<img src="https://i2.wp.com/citris-uc.org/wp-content/uploads/2013/12/Health-blue-e1429679140877.jpg?resize=1013%2C567&ssl=1" id="bg" alt="">
 
+  <div id="formContainer">
+    <p id="title">Enter Today's Weight</p>
+    <div id="form">
 
+{{!-- ---------------------form------------------ --}}
     <form action="/weight" method="POST">
       {{!-- <input name="todaysWeight" type="number" placeholder="todays Weight"> --}}
 
@@ -26,18 +32,23 @@
       <div id="flex-me" class="def-number-input number-input safari_only">
         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn btn-danger"
           type="button">-</button>
-        <input style="text-align: center" class="quantity form-control" min="0" name="todaysWeight" type="number"
+        <input id="weight" style="text-align: center" class="quantity form-control" min="0" name="todaysWeight" type="number"
           placeholder={{weight}}>
         <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn btn-success"
           type="button">+</button>
 
       </div>
-      <button type="submit" class="btn btn-primary">Update My Weight And Get Started!</button>
+      <button id="submit" type="submit" class="btn btn-primary">Update My Weight</button>
       <br>
 
-      <a href="/dashboard">Or Press Here if you Prefer not to answer</a>
+      <a id="prefer" href="/dashboard">..prefer not to answer..</a>
     </form>
+{{!-- ---------------------form------------------ --}}
+    </div>
   </div>
+
+</div>
+
 
 </body>
 
