@@ -6,17 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="/assets/weight.css">
 </head>
 
 <body>
-  <h1>This is your daily weight page</h1>
 
-  <form action="/weight" method="POST">
-    <input name="todaysWeight" type="number" placeholder="todays Weight">
-    <button type="submit">Enter</button>
+  <header class="text-center" id="navbar-label">
+    <h1>SandFit Fitness App</h1>
+  </header>
+  <h1 class="label text-center">Enter Todays Weight to get Started!</h1>
 
-    <button type="submit">Or press here if you prefer not to answer</button>
-  </form>
+  <div class="container text-center">
+
+
+    <form action="/weight" method="POST">
+      {{!-- <input name="todaysWeight" type="number" placeholder="todays Weight"> --}}
+
+
+      <div id="flex-me" class="def-number-input number-input safari_only">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn btn-danger"
+          type="button">-</button>
+        <input style="text-align: center" class="quantity form-control" min="0" name="todaysWeight" type="number"
+          placeholder={{weight}}>
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn btn-success"
+          type="button">+</button>
+
+      </div>
+      <button type="submit" class="btn btn-primary">Update My Weight And Get Started!</button>
+      <br>
+
+      <a href="/dashboard">Or Press Here if you Prefer not to answer</a>
+    </form>
+  </div>
 
 </body>
 

@@ -1,0 +1,122 @@
+
+#navbar-label{
+    background:#2F66A9;
+    height:7vh;
+    width: 100%;
+    color:white;
+    /* margin-bottom:2vh; */
+
+    height: 5em;
+    margin-bottom:0px;
+    /* position: relative; */
+    
+  }
+
+  #icons {
+      display: flex;
+      float: right;
+      margin-right:1%;
+      margin-top:1%;
+     
+  }
+
+  i {
+      margin: 8px;
+      color: white;
+  }
+
+  #navbar-label i{
+      float:right;
+  }
+  
+#cardHolder {
+    display: flex;
+    flex-wrap: wrap ;
+    justify-content: space-between;
+    margin-bottom:10vh;
+}
+.card-img-top { 
+    width:40vh;
+    height:50vh;
+}
+
+.card {
+    width:28%;
+    /* height:100%; */
+}
+h1 {
+    padding-top:10px;
+    font-family: 'Literata', serif;
+    display: inline;
+    margin-left: 35%;
+    
+
+}
+
+#userName {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Literata', serif;
+}
+
+#cal-calc {
+    /* font-weight: bold; */
+    padding-left: 220px;
+    color:white;
+    
+}
+
+
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
+}
+
+
+
+
+#exercise {
+
+    width: 100%;
+
+}
+
+.dropdown-menu {
+
+    /* width:80%; */
+    text-align: center;
+    color: lightskyblue;
+} 
+
+#intensity {
+
+    width: 100%;
+}
+
+#daily-workout {
+
+    background-color: lightskyblue;
+}
+
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
+  }
