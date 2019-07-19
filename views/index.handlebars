@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Register</title>
+<link rel="stylesheet" type="text/css" href="/assets/css/dashboard.css">
   <link rel="stylesheet" href="/assets/register.css">
+  <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
 </head>
 
 <body id="body">
@@ -15,15 +17,29 @@
     <h1>SandFit Fitness App</h1>
   </header>
 
+  <nav style="height:3em" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <p class="h3 text-center mt-1">Sign Up For SandFit!</p>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  </div>
+</nav>
+<div id="image">
   <!-- Default form register -->
   {{!-- <div class="container-fluid"> --}}
   <form id="behave" class="text-center p-3" action="/" method="POST">
 
 
 
-    <p class="h3 blue-me text-center mb-4">Sign Up For SandFit!</p>
 
-    <div class="form-row mb-4">
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+
+ 
+    <div class="form-row mb-4 pull-right">
       <div class="col">
         <!-- First name -->
         <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First name">
@@ -50,7 +66,10 @@
 
     <hr>
     <button id="signup-button" class="btn my-4 btn-block">Create Account</button>
-
+   </div>
+  </div>
+</div>
+</div>
 
   </form>
   {{!-- </div> --}}

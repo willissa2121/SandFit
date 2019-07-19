@@ -1,4 +1,16 @@
 
+#navbar-label{
+    background:#0066ee;
+    height:7vh;
+    width: 100%;
+    color:white;
+    margin-bottom:2vh;
+    display:flex;
+    justify-content:center;
+    height: 5em;
+    margin-bottom:0px;
+  }
+  
 #cardHolder {
     display: flex;
     flex-wrap: wrap ;
