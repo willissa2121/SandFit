@@ -4,6 +4,7 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+var moment = require('moment');
 
 require('dotenv').config();
 
@@ -149,7 +150,10 @@ app.get('/password', (req, res) => {
   res.render('password')
 })
 app.get("/diet", function(req, res) {
-  res.render("dietRec");
+  if (username)
+    res.render("dietRec");
+  else
+  res.redirect('/');
 })
 
 //function that will send email to user containing password if email is recognized;
@@ -216,7 +220,6 @@ app.post("/diet", function(req, res) {
       method: "get",
       url: queryURL
     }).then(function(result) {
-      console.log(result.data);
       totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
       totalFat += result.data.totalNutrients.FAT.quantity;
       totalCarbs += result.data.totalNutrients.CHOCDF.quantity;
@@ -225,6 +228,19 @@ app.post("/diet", function(req, res) {
       if (i+1 >= food.length){
         nuApiCall(i+1, food);
       }
+      db.diets.create({
+        userId: username,
+        date: moment().format('L'),
+        nutrients: JSON.stringify({
+          energy: totalEnergy,
+          fat: totalFat,
+          carbs: totalCarbs,
+          protein: totalProtein,
+          sodium: totalSodium
+        }),
+        type: "breakfast",
+        food: JSON.stringify(food)
+      });
       res.send({
         energy: totalEnergy,
         fat: totalFat,

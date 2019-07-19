@@ -1,21 +1,21 @@
 module.exports = (function (sequelize, DataTypes) {
-    var userDiet = sequelize.define("Diets", {
+    var userDiet = sequelize.define("diets", {
         userId: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           allowNull: false
         },
         date: {
           type: DataTypes.STRING
         },
-        breakfast: {
+        nutrients: {
           type: DataTypes.STRING,
           allowNull: true
         },
-        lunch: {
+        type: {
           type: DataTypes.STRING,
           allowNull: true
         },
-        dinner: {
+        food: {
           type: DataTypes.STRING,
           allowNull: true
         }

@@ -22,6 +22,7 @@ $("#add-food").on("click", function(event) {
 
 $("#submit-food").on("click", function(evnet) {
     event.preventDefault();
+    $("#display-nutrition").empty();
     if (foodList) {  
         $.post("/diet", {food: foodList}, function(data) {
             $("<p>").text("Calories: " + data.energy + " kcal").appendTo($("#display-nutrition"));
