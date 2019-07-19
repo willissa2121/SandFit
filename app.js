@@ -4,7 +4,11 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+
+require('dotenv').config();
+
 let username;
+
 
 
 var app = express();
@@ -144,6 +148,9 @@ app.get('/password/fail', (req, res) => {
 app.get('/password', (req, res) => {
   res.render('password')
 })
+app.get("/diet", function(req, res) {
+  res.render("dietRec");
+})
 
 //function that will send email to user containing password if email is recognized;
 app.post('/password', (req, res) => {
@@ -192,6 +199,43 @@ app.post('/survey', (req, res) => {
   updateUser(req.body, res)
 })
 
+
+var totalEnergy = 0;
+var totalFat = 0;
+var totalCarbs = 0;
+var totalProtein = 0;
+var totalSodium = 0;
+app.post("/diet", function(req, res) {
+  nuApiCall(0, req.body.food);
+  function nuApiCall(i, food) {
+    var queryURL = "https://api.edamam.com/api/nutrition-data?";
+    queryURL += "app_id=" + process.env.APP_ID;
+    queryURL += "&app_key=" + process.env.API_KEY;
+    queryURL += "&ingr=" + food[i];
+    axios({
+      method: "get",
+      url: queryURL
+    }).then(function(result) {
+      console.log(result.data);
+      totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
+      totalFat += result.data.totalNutrients.FAT.quantity;
+      totalCarbs += result.data.totalNutrients.CHOCDF.quantity;
+      totalProtein += result.data.totalNutrients.PROCNT.quantity;
+      totalSodium += result.data.totalNutrients.NA.quantity;
+      if (i+1 >= food.length){
+        nuApiCall(i+1, food);
+      }
+      res.send({
+        energy: totalEnergy,
+        fat: totalFat,
+        carbs: totalCarbs,
+        protein: totalProtein,
+        sodium: totalSodium
+      });
+    });
+  }
+})
+
 app.get("/dashboard", (req, res) => {
   db.users.findAll({
     attributes: ['calories', 'caloriesToday'],
@@ -232,6 +276,7 @@ app.get("/api/dashboard/:condition/:level", (req, res) => {
 //     res.json(results)
 //   });
 // });
+
 
 // Function to make sure user has updated today, to take to weight entery screen (via login post [nested])
 let checkDate = (x, res) => {
