@@ -189,6 +189,9 @@ a:hover{
 .red-me{
   color:red;
 }
+#red-me{
+  color:red;
+}
 
 a {
   color: white;

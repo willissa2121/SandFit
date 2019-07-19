@@ -75,8 +75,44 @@ h1 {
     position: fixed;
     bottom: 0;
     width:100vw;
+}
+
+
+
+
+#exercise {
+
+    width: 100%;
+
+}
+
+.dropdown-menu {
+
+    /* width:80%; */
+    text-align: center;
+    color: lightskyblue;
+} 
+
+#intensity {
+
+    width: 100%;
+}
+
+#daily-workout {
+
+    background-color: lightskyblue;
+}
+
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
   }
-
-
-
-
