@@ -4,20 +4,39 @@
     height:7vh;
     width: 100%;
     color:white;
-    margin-bottom:2vh;
-    display:flex;
-    justify-content:center;
+    /* margin-bottom:2vh; */
+
     height: 5em;
     margin-bottom:0px;
+    /* position: relative; */
+    
+  }
+
+  #icons {
+      display: flex;
+      float: right;
+      margin-right:1%;
+      margin-top:1%;
+     
+  }
+
+  i {
+      margin: 8px;
+      color: white;
+  }
+
+  #navbar-label i{
+      float:right;
   }
   
 #cardHolder {
     display: flex;
     flex-wrap: wrap ;
     justify-content: space-between;
+    margin-bottom:10vh;
 }
 .card-img-top { 
-    width:50vh;
+    width:40vh;
     height:50vh;
 }
 
@@ -28,6 +47,9 @@
 h1 {
     padding-top:10px;
     font-family: 'Literata', serif;
+    display: inline;
+    margin-left: 35%;
+    
 
 }
 
@@ -39,19 +61,28 @@ h1 {
 
 #cal-calc {
     /* font-weight: bold; */
-    padding-left: 190px;
+    padding-left: 220px;
     color:white;
+    
 }
 
 
-/* .dropdown-item {
-    width: 170%;
-
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
 }
 
-.dropdown-menu {
 
-} */
+
 
 #exercise {
 
