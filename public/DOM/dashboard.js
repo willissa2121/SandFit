@@ -10,7 +10,7 @@ $("#exercise a").on("click", function () {
 
   //grab exercise name and append
   $('#ddm1Text').empty();
-  $('#ddm1Text').append( " " + workoutData.exerciseType)
+  $('#ddm1Text').append(" " + workoutData.exerciseType)
 });
 
 //grabbing user input
@@ -20,11 +20,12 @@ $("#intensity a").on("click", function () {
 
   //grab exercise name and append
   $('#ddm2Text').empty();
-  $('#ddm2Text').append( " " + workoutData.exerciseIntensity)
+  $('#ddm2Text').append(" " + workoutData.exerciseIntensity)
 });
 
 $("#daily-workout").on("click", function (event) {
   event.preventDefault();
+  $(".new").empty();
   $(".card").empty();
   // console.log(workoutData);
 
