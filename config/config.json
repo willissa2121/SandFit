@@ -5,8 +5,7 @@
     "database": "practice_db",
     "host": "localhost",
     "port": 3306,
-    "dialect": "mysql",
-    "start": "node app.js"
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
