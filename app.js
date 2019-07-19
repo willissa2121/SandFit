@@ -4,8 +4,15 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
+
+var moment = require('moment');
+
+require('dotenv').config();
+
+
 let bcrypt = require('bcrypt');
 const saltRounds = 10;
+
 let username;
 
 
@@ -155,8 +162,13 @@ app.get('/password/fail', (req, res) => {
 app.get('/password', (req, res) => {
   res.render('password')
 })
-app.get("/diet", function (req, res) {
-  res.render("dietRec");
+
+app.get("/diet", function(req, res) {
+  if (username)
+    res.render("dietRec");
+  else
+  res.redirect('/');
+
 })
 
 //function that will send email to user containing password if email is recognized;
@@ -216,14 +228,15 @@ app.post("/diet", function (req, res) {
   nuApiCall(0, req.body.food);
   function nuApiCall(i, food) {
     var queryURL = "https://api.edamam.com/api/nutrition-data?";
-    queryURL += "app_id=" + process.env.APP_ID;
-    queryURL += "&app_key=" + process.env.API_KEY;
+    queryURL += "app_id=20bb1cb1";
+    queryURL += "&app_key=6cf97563ddd5acf35930f28d12067a06";
     queryURL += "&ingr=" + food[i];
     axios({
       method: "get",
       url: queryURL
-    }).then(function (result) {
-      console.log(result.data);
+
+    }).then(function(result) {
+
       totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
       totalFat += result.data.totalNutrients.FAT.quantity;
       totalCarbs += result.data.totalNutrients.CHOCDF.quantity;
@@ -232,6 +245,19 @@ app.post("/diet", function (req, res) {
       if (i + 1 >= food.length) {
         nuApiCall(i + 1, food);
       }
+      db.diets.create({
+        userId: username,
+        date: moment().format('L'),
+        nutrients: JSON.stringify({
+          energy: totalEnergy,
+          fat: totalFat,
+          carbs: totalCarbs,
+          protein: totalProtein,
+          sodium: totalSodium
+        }),
+        type: "breakfast",
+        food: JSON.stringify(food)
+      });
       res.send({
         energy: totalEnergy,
         fat: totalFat,
