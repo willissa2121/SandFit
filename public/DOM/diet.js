@@ -17,15 +17,14 @@ $("#add-food").on("click", function(event) {
         foodList.push($("#foodInput").val().trim());
         displayInputFood();
         $("#foodInput").val('');
-        console.log(JSON.stringify(foodList));
     }
 });
 
 $("#submit-food").on("click", function(evnet) {
     event.preventDefault();
     if (foodList) {  
-        $.post("/user/diet", foodList, function(data) {
-            
+        $.post("/diet", {food: foodList}, function(data) {
+
         })
     }
 });

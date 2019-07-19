@@ -148,6 +148,37 @@ app.post('/survey', (req, res) => {
   // console.log(req.body)
   updateUser(req.body, res)
 })
+app.post("/diet", function(req, res) {
+  var totalEnergy = 0;
+  var totalFat = 0;
+  var totalCarbs = 0;
+  var totalSugar = 0;
+  var totalProtein = 0;
+  var totalSodium = 0;
+  nuApiCall(0, req.body.food);
+  function nuApiCall(i, food) {
+    var queryURL = "https://api.edamam.com/api/nutrition-data?";
+    queryURL += "app_id=" + process.env.APP_ID;
+    queryURL += "&app_key=" + process.env.API_KEY;
+    queryURL += "&ingr=" + food[i];
+    axios({
+      method: "get",
+      url: queryURL
+    }).then(function(result) {
+      totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
+      totalFat += result.data.totalNutrients.FAT.quantity;
+      totalCarbs += result.data.totalNutrients.CHOCDF.quantity;
+      totalSugar += result.data.totalNutrients.SUGAR.quantity;
+      totalProtein += result.data.totalNutrients.PROCNT.quantity;
+      totalSodium += result.data.totalNutrients.NA.quantity;
+      console.log(totalEnergy,totalFat,totalCarbs);
+      if (i+1 < food.length)
+        nuApiCall(i+1, food);
+    });
+    console.log(data);
+    res.send({ hello: 'world' });
+  }
+})
 
 // Function to make sure user has updated today, to take to weight entery screen (via login post [nested])
 let checkDate = (x, res) => {
