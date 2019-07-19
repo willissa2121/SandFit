@@ -17,7 +17,6 @@
       float: right;
       margin-right:1%;
       margin-top:1%;
-     
   }
 
   i {
@@ -35,6 +34,7 @@
     justify-content: space-between;
     margin-bottom:10vh;
 }
+
 .card-img-top { 
     width:40vh;
     height:50vh;
@@ -44,13 +44,11 @@
     width:28%;
     /* height:100%; */
 }
+
 h1 {
-    padding-top:10px;
     font-family: 'Literata', serif;
     display: inline;
     margin-left: 35%;
-    
-
 }
 
 #userName {
@@ -61,11 +59,9 @@ h1 {
 
 #cal-calc {
     /* font-weight: bold; */
-    padding-left: 220px;
-    color:white;
-    
+    color:white;  
+    margin-left: 19%;
 }
-
 
 .footer{
     color:#FFF;

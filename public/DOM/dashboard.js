@@ -73,5 +73,7 @@ $("#daily-workout").on("click", function (event) {
 
         $("#cardHolder").append(newCard);
       }
+      let newH2 = $("<h2>").text("Your Exercises")
+      $(".new").append(newH2)
     })
 })
