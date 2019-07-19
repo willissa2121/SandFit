@@ -81,26 +81,29 @@ app.get('/login/fail', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-  // console.log(username)
-  db.users.findAll({
-    attributes: ['calories', 'caloriesToday', 'name'],
-    where: {
-      email: username
-    }
-  }).then(function (response) {
-    // console.log(username)
-    // console.log(response[0].dataValues)
-    let remaining = response[0].dataValues.calories - response[0].dataValues.caloriesToday
-    let bigData = {
-      username: response[0].dataValues.name,
-      calories: response[0].dataValues.calories,
-      calsToday: response[0].dataValues.caloriesToday,
-      remaining: remaining
-    }
-    // console.log(bigData)
-    res.render('dashboard', bigData)
-  })
+  db.exerciseInfo.findAll({}).then(function (data) {
 
+
+    db.users.findAll({
+      attributes: ['calories', 'caloriesToday', 'name'],
+      where: {
+        email: username
+      }
+    }).then(function (response) {
+      // console.log(username)
+      // console.log(response[0].dataValues)
+      let remaining = response[0].dataValues.calories - response[0].dataValues.caloriesToday
+      let bigData = {
+        username: response[0].dataValues.name,
+        calories: response[0].dataValues.calories,
+        calsToday: response[0].dataValues.caloriesToday,
+        remaining: remaining,
+        data: data
+      }
+      // console.log(bigData)
+      res.render('dashboard', bigData)
+    })
+  })
 })
 
 app.get('/weight', (req, res) => {
