@@ -6,19 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+ <link rel="stylesheet" type="text/css" href="/assets/css/survey.css">
 </head>
 
 <body>
-  <h1>This is the survery page</h1>
 
-  <form action="/survey" id="surveyForm">
-    <input type="text" id="weight" placeholder="weight">
-    <input type="text" id="height" placeholder ='height'>
-    <input type="text" id="age" placeholder = 'age'>
-    <input type="text" id="gender" placeholder = 'gender'>
-    <input type="text" id="goalWeight" placeholder = 'goal'>
-    <button type="submit">Check</button>
-  </form>
+<div class="container">
+  
+  <img src="https://i2.wp.com/citris-uc.org/wp-content/uploads/2013/12/Health-blue-e1429679140877.jpg?resize=1013%2C567&ssl=1" id="bg" alt="">
+
+  <div id="formContainer">
+
+    <p id="title">Survey To Manage Your Stats</p>
+    <div id="form">
+      <form action="/survey" id="surveyForm">
+        <input id="t1" type="text" id="weight" placeholder="weight">
+        <input id="t2" type="text" id="height" placeholder ='height'>
+        <input id="t3" type="text" id="age" placeholder = 'age'>
+        <input id="t4" type="text" id="gender" placeholder = 'gender'>
+        <input id="t5" type="text" id="goalWeight" placeholder = 'goal'>
+        <button id="submit" type="submit">Check</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
 </body>
 
 </html>

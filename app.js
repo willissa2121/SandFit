@@ -4,14 +4,8 @@ var exphbs = require("express-handlebars");
 var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
-<<<<<<< HEAD
-
-require('dotenv').config();
-
-=======
 let bcrypt = require('bcrypt');
 const saltRounds = 10;
->>>>>>> master
 let username;
 
 
