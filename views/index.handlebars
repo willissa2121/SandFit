@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Register</title>
-<link rel="stylesheet" type="text/css" href="/assets/css/dashboard.css">
+  {{!-- <link rel="stylesheet" type="text/css" href="/assets/css/dashboard.css"> --}}
   <link rel="stylesheet" href="/assets/register.css">
   <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
 </head>
@@ -27,19 +27,13 @@
   </div>
 </nav>
 <div id="image">
-  <!-- Default form register -->
-  {{!-- <div class="container-fluid"> --}}
-  <form id="behave" class="text-center p-3" action="/" method="POST">
-
-
-
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row justify-content-end">
 
+  <form id="behave" class="col-md-4 text-center p-3" action="/" method="POST">
  
-    <div class="form-row mb-4 pull-right">
+    <div class="form-row mb-4 ">
       <div class="col">
         <!-- First name -->
         <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First name">
@@ -66,20 +60,22 @@
 
     <hr>
     <button id="signup-button" class="btn my-4 btn-block">Create Account</button>
-   </div>
+  </form>
   </div>
 </div>
 </div>
 
-  </form>
-  {{!-- </div> --}}
+ <div class="container">
+   <div class="row">
+     <div class="col-md-12">
+
   <div class="header-after">
     <h1 id="header-register">What is SandFit?</h1>
   </div>
-  <div class="container container-pic">
 
+  <div class="container container-pic mb-3 text-center">
     <div class="img-group-2">
-      <img id="fitguy" src="/images/fitguy.png" alt="not working">
+      <img id="fitguy" src="/images/barbell.jpg" alt="not working">
       <p class="p-1">Customizable workouts!</p>
 
       <a href="/"><button class="btn waves-effect btn-fit-guy">Sign Up!</button></a>
@@ -92,6 +88,9 @@
       <a href="/"><button class="btn btn-2 waves-effect btn-fit-guy">Get Started</button></a>
     </div>
   </div>
+      </div>
+   </div>
+ </div>
 
   <div class="footer">
     <a class="footerP" href="/login">Already A User? Login In!</a>

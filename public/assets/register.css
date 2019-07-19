@@ -9,7 +9,7 @@
 }
 
 #navbar-label{
-  background: blue;
+  background: #2F66A9;
   height:7vh;
   width: 100%;
   color: white ;
@@ -20,10 +20,32 @@
   margin-bottom:0px;
 }
 
+h1 {
+  padding-top:10px;
+  font-family: 'Literata', serif;
+
+}
+
+#userName {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: 'Literata', serif;
+}
+
+#cal-calc {
+  /* font-weight: bold; */
+  padding-left: 190px;
+  color:white;
+}
+
 .btn{
   background:#0066ee;
   color:#fff;
+}
 
+#image {
+  height:100vh;
+  border-bottom: solid black 3px;
 }
 
 
@@ -48,7 +70,7 @@
 }
 
 #header-register{
-  color:#0066ee;
+  color:#08B6CE;
   font-weight:300;
   font-size:35px;
   margin-top:2vh;
@@ -96,11 +118,15 @@ a:hover{
 }
 
 .p-1{
-  color:#0066ee;
+  color:#08B6CE;
 }
 .header-after{
   display:flex;
   justify-content:center;
+}
+
+#login-button {
+  background: #2F66A9;
 }
 
 .btn-2{
