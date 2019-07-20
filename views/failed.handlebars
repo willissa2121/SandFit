@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Register</title>
+  {{!-- <link rel="stylesheet" type="text/css" href="/assets/css/dashboard.css"> --}}
   <link rel="stylesheet" href="/assets/register.css">
+  <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
 </head>
 
 <body id="body">
@@ -15,66 +17,80 @@
     <h1>SandFit Fitness App</h1>
   </header>
 
-  <!-- Default form register -->
-  {{!-- <div class="container-fluid"> --}}
-  <form id="behave" class="text-center p-3" action="/" method="POST">
+  <nav style="height:3em" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <p class="h3 text-center mt-1">Sign Up For SandFit!</p>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    </div>
+  </nav>
+  <div id="image">
 
+    <div class="container">
+      <div class="row justify-content-end">
 
+        <form id="behave" class="col-md-4 text-center p-3" action="/" method="POST">
 
-    <p class="h3 blue-me text-center mb-4">Sign Up For SandFit!</p>
+          <div class="form-row mb-4 ">
+            <div class="col">
+              <!-- First name -->
+              <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First name">
+            </div>
+            <div class="col">
+              <!-- Last name -->
+              <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last name">
+            </div>
+          </div>
 
-    <p class="h3 red-me text-center mb-4">User Credentials Not Recognized</p>
+          <!-- E-mail -->
+          <input name="email" type="email" id="userEmail" class="form-control mb-4" placeholder="E-mail">
 
+          <!-- Password -->
+          <input name="password" type="password" id="userPassword" class="form-control mb-4" placeholder="Password"
+            aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
+          <!-- Phone number -->
+          <input name="phone" type="text" id="userPhone" class="form-control mb-4" placeholder="Phone number"
+            aria-describedby="defaultRegisterFormPhoneHelpBlock">
 
-    <div class="form-row mb-4">
-      <div class="col">
-        <!-- First name -->
-        <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First name">
-      </div>
-      <div class="col">
-        <!-- Last name -->
-        <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last name">
+          <p id="red-me">Email is Already in use</p>
+
+          <a class="blue-me" href="/login">Already a member?</a>
+          <!-- Sign up button -->
+
+          <hr>
+          <button id="signup-button" class="btn my-4 btn-block">Create Account</button>
+        </form>
       </div>
     </div>
-
-    <!-- E-mail -->
-    <input name="email" type="email" id="userEmail" class="form-control mb-4" placeholder="E-mail">
-
-    <!-- Password -->
-    <input name="password" type="password" id="userPassword" class="form-control mb-4" placeholder="Password"
-      aria-describedby="defaultRegisterFormPasswordHelpBlock">
-
-    <!-- Phone number -->
-    <input name="phone" type="text" id="userPhone" class="form-control mb-4" placeholder="Phone number"
-      aria-describedby="defaultRegisterFormPhoneHelpBlock">
-
-    <a class="blue-me" href="/login">Already a member?</a>
-    <!-- Sign up button -->
-    <a class="blue-me" href="/">New to SandFit? Make an account!</a>
-    <hr>
-    <button id="signup-button" class="btn my-4 btn-block">Create Account</button>
-
-
-  </form>
-  {{!-- </div> --}}
-  <div class="header-after">
-    <h1 id="header-register">What is SandFit?</h1>
   </div>
-  <div class="container container-pic">
 
-    <div class="img-group-2">
-      <img id="fitguy" src="/images/fitguy.png" alt="not working">
-      <p class="p-1">Customizable workouts!</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
 
-      <a href="/"><button class="btn waves-effect btn-fit-guy">Sign Up!</button></a>
-    </div>
-    <div class="img-group-2">
-      <img id="fitguy" src="/images/vegtables.png" alt="not working">
-      <p class="p-1">Calories Goals specifically for you
-      </p>
+        <div class="header-after">
+          <h1 id="header-register">What is SandFit?</h1>
+        </div>
 
-      <a href="/"><button class="btn btn-2 waves-effect btn-fit-guy">Get Started</button></a>
+        <div class="container container-pic mb-3 text-center">
+          <div class="img-group-2">
+            <img id="fitguy" src="/images/barbell.jpg" alt="not working">
+            <p class="p-1">Customizable workouts!</p>
+
+            <a href="/"><button class="btn waves-effect btn-fit-guy">Sign Up!</button></a>
+          </div>
+          <div class="img-group-2">
+            <img id="fitguy" src="/images/vegtables.png" alt="not working">
+            <p class="p-1">Calories Goals Specifically for you!
+            </p>
+
+            <a href="/"><button class="btn btn-2 waves-effect btn-fit-guy">Get Started</button></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

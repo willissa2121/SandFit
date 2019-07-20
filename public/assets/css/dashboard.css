@@ -4,20 +4,39 @@
     height:7vh;
     width: 100%;
     color:white;
-    margin-bottom:2vh;
-    display:flex;
-    justify-content:center;
+    /* margin-bottom:2vh; */
+
     height: 5em;
     margin-bottom:0px;
+    /* position: relative; */
+    
+  }
+
+  #icons {
+      display: flex;
+      float: right;
+      margin-right:1%;
+      margin-top:1%;
+  }
+
+  i {
+      margin: 8px;
+      color: white;
+  }
+
+  #navbar-label i{
+      float:right;
   }
   
 #cardHolder {
     display: flex;
     flex-wrap: wrap ;
     justify-content: space-between;
+    margin-bottom:10vh;
 }
+
 .card-img-top { 
-    width:50vh;
+    width:40vh;
     height:50vh;
 }
 
@@ -25,10 +44,11 @@
     width:28%;
     /* height:100%; */
 }
-h1 {
-    padding-top:10px;
-    font-family: 'Literata', serif;
 
+h1 {
+    font-family: 'Literata', serif;
+    display: inline;
+    margin-left: 35%;
 }
 
 #userName {
@@ -39,19 +59,26 @@ h1 {
 
 #cal-calc {
     /* font-weight: bold; */
-    padding-left: 190px;
-    color:white;
+    color:white;  
+    margin-left: 19%;
+}
+
+.footer{
+    color:#FFF;
+    background:#000;
+    height:10vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+    padding:0;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
 }
 
 
-/* .dropdown-item {
-    width: 170%;
 
-}
-
-.dropdown-menu {
-
-} */
 
 #exercise {
 
