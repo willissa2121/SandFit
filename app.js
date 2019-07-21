@@ -72,6 +72,24 @@ app.get('/settings', (req, res) => {
 
 })
 
+app.post('/settings',(req,res)=>{
+
+  db.users.update({
+    name: req.body.name,
+    email: req.body.email,
+    phoneNumber: req.body.phone,
+    age: req.body.age,
+    gender: req.body.gender,
+    height: req.body.height
+  },
+    { where: { email: username } }
+  ).then(function (data) {
+    // console.log('checked')
+    res.redirect('/dashboard')
+
+  })
+})
+
 app.post('/register', (req, res) => {
   let email = req.body.email;
   checkEmail(email, req.body, res)
