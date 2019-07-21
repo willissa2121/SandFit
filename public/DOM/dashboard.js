@@ -66,7 +66,7 @@ $("#daily-workout").on("click", function (event) {
         newLi2.text(element.level);
         newUl.append(newLi2);
 
-        let newLi3 = $("<li>").addClass("list-group-item");
+        let newLi3 = $("<a>").addClass("list-group-item");
         newLi3.attr("href", element.link);
         newLi3.text('Click here for video')
         // newUl.html($("<a></a>").attr("href", element.link))
