@@ -62,8 +62,8 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/settings', (req, res) => {
-  if (username)
-    res.render("dietRec");
+  if (!username)
+    res.render("/");
   else
     db.users.findAll({
       where: {
