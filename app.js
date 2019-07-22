@@ -47,9 +47,9 @@ app.post('/', (req, res) => {
 
 app.get('/survey', (req, res) => {
   if (username)
-    res.render("dietRec");
+    res.render("survey");
   else
-    res.render('survey')
+    res.render('/')
 })
 
 app.get('/landing', (req, res) => {
@@ -65,8 +65,8 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/settings', (req, res) => {
-  if (username)
-    res.render("dietRec");
+  if (!username)
+    res.render("/");
   else
     db.users.findAll({
       where: {
