@@ -46,10 +46,7 @@ app.post('/', (req, res) => {
 })
 
 app.get('/survey', (req, res) => {
-  if (username)
-    res.render("dietRec");
-  else
-    res.render('survey')
+  res.render('survey')
 })
 
 app.get('/landing', (req, res) => {
@@ -79,7 +76,7 @@ app.get('/settings', (req, res) => {
 
 })
 
-app.post('/settings',(req,res)=>{
+app.post('/settings', (req, res) => {
 
   db.users.update({
     name: req.body.name,
@@ -284,7 +281,7 @@ app.post("/diet", function (req, res) {
     });
   }
 })
-app.post("/diet/data", function(req, res) {
+app.post("/diet/data", function (req, res) {
   if (req.body.meal === "today") {
     db.diets.findAll({
       attributes: ["food", "nutrients"],
@@ -302,19 +299,19 @@ app.post("/diet/data", function(req, res) {
         protein: 0,
         sodium: 0
       };
-      for (var i=0;i<response.length;i++) {
+      for (var i = 0; i < response.length; i++) {
         var tempFood = JSON.parse(response[i].dataValues.food);
         var tempNutr = JSON.parse(response[i].dataValues.nutrients);
         tempFood.forEach(element => {
           totalFood.push(element);
-      });
-      totalNutrients.energy += tempNutr.energy;
-      totalNutrients.fat += tempNutr.fat;
-      totalNutrients.carbs += tempNutr.carbs;
-      totalNutrients.protein += tempNutr.protein;
-      totalNutrients.sodium += tempNutr.sodium;
+        });
+        totalNutrients.energy += tempNutr.energy;
+        totalNutrients.fat += tempNutr.fat;
+        totalNutrients.carbs += tempNutr.carbs;
+        totalNutrients.protein += tempNutr.protein;
+        totalNutrients.sodium += tempNutr.sodium;
       }
-      res.send([{food: JSON.stringify(totalFood), nutrients: JSON.stringify(totalNutrients)}]);
+      res.send([{ food: JSON.stringify(totalFood), nutrients: JSON.stringify(totalNutrients) }]);
     });
   } else {
     db.diets.findAll({
