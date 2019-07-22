@@ -1,0 +1,52 @@
+body {
+  background-color: lightskyblue;
+}
+
+/* #image{
+  background-image: url("https://i2.wp.com/citris-uc.org/wp-content/uploads/2013/12/Health-blue-e1429679140877.jpg?resize=1013%2C567&ssl=1");
+  background-size: cover;
+  opacity: .9;
+} */
+
+
+#header-center{
+  color:#2F66A9;
+}
+i{
+  color:#2F66A9;
+}
+
+#save-changes{
+  background:#2F66A9;
+  color:#fff;
+  width: 98%
+}
+
+#navbar-label{
+  background: #2F66A9;
+  height:7vh;
+  width: 100%;
+  color: white ;
+  margin-bottom:2vh;
+  display:flex;
+  justify-content:center;
+  height: 5em;
+  margin-bottom:15px;
+}
+
+.card-block{
+  border: 2px solid #2f66a9;
+}
+
+#link-me{
+  color:#2f66a9;
+  margin: 0 auto;
+  padding-top:3vh;
+  font-size:15px;
+  padding-bottom:3vh;
+  
+}
+
+.centered-link{
+  padding: 1.5vh 0;
+}

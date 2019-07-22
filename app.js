@@ -11,7 +11,7 @@ let username;
 
 
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8079;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -70,6 +70,24 @@ app.get('/settings', (req, res) => {
     res.render('settings', bigData)
   })
 
+})
+
+app.post('/settings',(req,res)=>{
+
+  db.users.update({
+    name: req.body.name,
+    email: req.body.email,
+    phoneNumber: req.body.phone,
+    age: req.body.age,
+    gender: req.body.gender,
+    height: req.body.height
+  },
+    { where: { email: username } }
+  ).then(function (data) {
+    // console.log('checked')
+    res.redirect('/dashboard')
+
+  })
 })
 
 app.post('/register', (req, res) => {
@@ -156,11 +174,11 @@ app.get('/password', (req, res) => {
   res.render('password')
 })
 
-app.get("/diet", function(req, res) {
+app.get("/diet", function (req, res) {
   if (username)
     res.render("dietRec");
   else
-  res.redirect('/');
+    res.redirect('/');
 
 })
 
@@ -228,7 +246,7 @@ app.post("/diet", function (req, res) {
       method: "get",
       url: queryURL
 
-    }).then(function(result) {
+    }).then(function (result) {
 
       totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
       totalFat += result.data.totalNutrients.FAT.quantity;

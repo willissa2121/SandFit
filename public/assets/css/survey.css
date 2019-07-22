@@ -72,6 +72,21 @@ body {
 
 }
 
+
+#weight, #height, #age, #gender, #goalWeight {
+
+  border-radius: 25px;
+  border: 2px solid #87CEFA;
+  padding: 20px; 
+  width: 200px;
+  height: 15px;
+
+  margin-bottom: 2px;
+
+}
+
+
+
 #title {
 
     color: white;

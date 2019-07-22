@@ -10,7 +10,7 @@ $("#exercise a").on("click", function () {
 
   //grab exercise name and append
   $('#ddm1Text').empty();
-  $('#ddm1Text').append( " " + workoutData.exerciseType)
+  $('#ddm1Text').append(" " + workoutData.exerciseType)
 });
 
 //grabbing user input
@@ -20,11 +20,12 @@ $("#intensity a").on("click", function () {
 
   //grab exercise name and append
   $('#ddm2Text').empty();
-  $('#ddm2Text').append( " " + workoutData.exerciseIntensity)
+  $('#ddm2Text').append(" " + workoutData.exerciseIntensity)
 });
 
 $("#daily-workout").on("click", function (event) {
   event.preventDefault();
+  $(".new").empty();
   $(".card").empty();
   // console.log(workoutData);
 
@@ -65,7 +66,7 @@ $("#daily-workout").on("click", function (event) {
         newLi2.text(element.level);
         newUl.append(newLi2);
 
-        let newLi3 = $("<li>").addClass("list-group-item");
+        let newLi3 = $("<a>").addClass("list-group-item");
         newLi3.attr("href", element.link);
         newLi3.text('Click here for video')
         // newUl.html($("<a></a>").attr("href", element.link))
