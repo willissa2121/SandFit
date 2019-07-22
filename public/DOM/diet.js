@@ -37,7 +37,6 @@ function showCurMeal() {
             console.log(data);
             parsedFood = JSON.parse(data[0].food);
             parsedNutrients = JSON.parse(data[0].nutrients);
-            console.log(parsedFood);
             displayStoredFood(parsedFood);
             var newTable = $("<table>").addClass("table").appendTo($("#display-nutrients"));
             $("<thead>").append($("<tr>").append($("<th>").attr("scope", "col").text("Nutrients"),$("<th>").attr("scope", "col").text("Quantity"))).appendTo(newTable);

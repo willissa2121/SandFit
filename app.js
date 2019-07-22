@@ -46,7 +46,10 @@ app.post('/', (req, res) => {
 })
 
 app.get('/survey', (req, res) => {
-  res.render('survey')
+  if (username)
+    res.render("dietRec");
+  else
+    res.render('survey')
 })
 
 app.get('/landing', (req, res) => {
@@ -62,14 +65,17 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/settings', (req, res) => {
-  db.users.findAll({
-    where: {
-      email: username
-    }
-  }).then(response => {
-    let bigData = response[0].dataValues
-    res.render('settings', bigData)
-  })
+  if (username)
+    res.render("dietRec");
+  else
+    db.users.findAll({
+      where: {
+        email: username
+      }
+    }).then(response => {
+      let bigData = response[0].dataValues
+      res.render('settings', bigData)
+    })
 
 })
 
@@ -279,20 +285,52 @@ app.post("/diet", function (req, res) {
   }
 })
 app.post("/diet/data", function(req, res) {
-  console.log(req.body);
-  db.diets.findAll({
-    attributes: ["food", "nutrients"],
-    where: {
-      date: moment().format('L'),
-      type: req.body.meal,
-      userId: username
-    }
-  }).then(response => {
-    if (response)
-      res.send(response);
-    else
-      res.send("No Data");
-  });
+  if (req.body.meal === "today") {
+    db.diets.findAll({
+      attributes: ["food", "nutrients"],
+      where: {
+        date: moment().format('L'),
+        type: ["breakfast", "lunch", "dinner"],
+        userId: username
+      }
+    }).then(response => {
+      var totalFood = [];
+      var totalNutrients = {
+        energy: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
+        sodium: 0
+      };
+      for (var i=0;i<response.length;i++) {
+        var tempFood = JSON.parse(response[i].dataValues.food);
+        var tempNutr = JSON.parse(response[i].dataValues.nutrients);
+        tempFood.forEach(element => {
+          totalFood.push(element);
+      });
+      totalNutrients.energy += tempNutr.energy;
+      totalNutrients.fat += tempNutr.fat;
+      totalNutrients.carbs += tempNutr.carbs;
+      totalNutrients.protein += tempNutr.protein;
+      totalNutrients.sodium += tempNutr.sodium;
+      }
+      res.send([{food: JSON.stringify(totalFood), nutrients: JSON.stringify(totalNutrients)}]);
+    });
+  } else {
+    db.diets.findAll({
+      attributes: ["food", "nutrients"],
+      where: {
+        date: moment().format('L'),
+        type: req.body.meal,
+        userId: username
+      }
+    }).then(response => {
+      if (response)
+        res.send(response);
+      else
+        res.send("No Data");
+    });
+  }
 });
 
 app.get("/dashboard", (req, res) => {
