@@ -48,7 +48,7 @@
 h1 {
     font-family: 'Literata', serif;
     display: inline;
-    margin-left: 35%;
+    margin-left: 15%;
 }
 
 #userName {
@@ -60,7 +60,7 @@ h1 {
 #cal-calc {
     /* font-weight: bold; */
     color:white;  
-    margin-left: 19%;
+    margin-left: 10%;
 }
 
 .footer{
@@ -115,4 +115,28 @@ h1 {
     position: fixed;
     bottom: 0;
     width:100vw;
+  }
+  @media only screen and (max-width: 900px) {
+
+    h1 {
+        margin:5%;
+
+    }
+    #navbar-label {
+        height:8em;
+    }
+  
+#icons {
+    margin-right:39%;
+}
+
+
+  
+
+  @media only screen and (max-width:800px) {
+
+
+    #userName {
+        margin-left:35%;
+    }
   }
