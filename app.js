@@ -5,6 +5,7 @@ var mysql = require('mysql');
 const nodemailer = require("nodemailer");
 let axios = require("axios");
 let bcrypt = require('bcrypt');
+let moment = require("moment");
 const saltRounds = 10;
 let username;
 
@@ -236,25 +237,23 @@ var totalCarbs = 0;
 var totalProtein = 0;
 var totalSodium = 0;
 app.post("/diet", function (req, res) {
-  nuApiCall(0, req.body.food);
-  function nuApiCall(i, food) {
+  nuApiCall(0, req.body);
+  function nuApiCall(i, body) {
     var queryURL = "https://api.edamam.com/api/nutrition-data?";
     queryURL += "app_id=20bb1cb1";
     queryURL += "&app_key=6cf97563ddd5acf35930f28d12067a06";
-    queryURL += "&ingr=" + food[i];
+    queryURL += "&ingr=" + body.food[i];
     axios({
       method: "get",
       url: queryURL
-
     }).then(function (result) {
-
       totalEnergy += result.data.totalNutrients.ENERC_KCAL.quantity;
       totalFat += result.data.totalNutrients.FAT.quantity;
       totalCarbs += result.data.totalNutrients.CHOCDF.quantity;
       totalProtein += result.data.totalNutrients.PROCNT.quantity;
       totalSodium += result.data.totalNutrients.NA.quantity;
-      if (i + 1 >= food.length) {
-        nuApiCall(i + 1, food);
+      if (i + 1 >= body.food.length) {
+        nuApiCall(i + 1, body);
       }
       db.diets.create({
         userId: username,
@@ -266,8 +265,8 @@ app.post("/diet", function (req, res) {
           protein: totalProtein,
           sodium: totalSodium
         }),
-        type: "breakfast",
-        food: JSON.stringify(food)
+        type: body.mealType,
+        food: JSON.stringify(body.food)
       });
       res.send({
         energy: totalEnergy,
@@ -279,6 +278,22 @@ app.post("/diet", function (req, res) {
     });
   }
 })
+app.post("/diet/data", function(req, res) {
+  console.log(req.body);
+  db.diets.findAll({
+    attributes: ["food", "nutrients"],
+    where: {
+      date: moment().format('L'),
+      type: req.body.meal,
+      userId: username
+    }
+  }).then(response => {
+    if (response)
+      res.send(response);
+    else
+      res.send("No Data");
+  });
+});
 
 app.get("/dashboard", (req, res) => {
   db.users.findAll({

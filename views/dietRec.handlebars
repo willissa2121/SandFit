@@ -1,20 +1,60 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/assets/css/diet.css">
+</head>
+
+<div id="navbar-label">
+    <h1>SandFit Fitness App</h1>
+</div>
+<nav style="height:3em" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div id="pageName" class="navbar-brand text-left">Manage Your Diet</div>
+  </div>
+</nav>
+
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" id="input-food">
             <form>
                   <div class="form-group">
                         <label for="formGroupExampleInput">Food</label>
                         <input type="text" class="form-control" id="foodInput" placeholder="Add a food">
                   </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select Meal</label>
+                        <select class="form-control" id="meal-select">
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                        </select>
+                    </div>
                   <button type="submit" class="btn btn-primary" id="add-food">Add</button>
                   <button type="button" class="btn btn-primary" id="submit-food">Submit</button>
             </form>
-            <div id="display-nutrition">
-
+            <div id="foodBox">
+                
             </div>
         </div>
-        <div class="col-md-8" id="foodBox">
-          
+        <div class="col-md-8">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link meal-diet active" id="breakfast-meal" data-meal="breakfast"><i class="fas fa-egg"></i>Breakfast</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link meal-diet" id="lunch-meal" data-meal="lunch"><i class="fas fa-hotdog"></i></i>Lunch</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link meal-diet" id="dinner-meal" data-meal="dinner"><i class="fas fa-pizza-slice"></i>Dinner</a>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" id="display-nutrients">
+                    <div id="intake-chart"></div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
         </div>
     </div>
+</div>
+<div class="centered-link text-center">
+    <a id="link-me" href="/dashboard">Back to Main Page</a>
 </div>
